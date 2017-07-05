@@ -1,7 +1,4 @@
 Mazda RX7-FC3S
 
-<<<<<<< HEAD
 MazdaEfiniRX-7(FD-3S)
-=======
- TOYOTA TURENO GT-APEX(AE86)
->>>>>>> 6032b24d09b458c2ddeefcdd16c3cea961a027ad
+TOYOTA TURENO GT-APEX(AE86)
