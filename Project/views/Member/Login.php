@@ -6,41 +6,62 @@
 <?php require("views/script_css.php") ?>
 </head>
 <body>
-	<h1 id="target" class="blue-text text-darken-2 animated rubberBand">
+	<a href="/Project/Home/Index" style="text-decoration:none;">
+		<h1 id="target" class="blue-text text-darken-2 animated rubberBand">
             吃飯行事曆
-    </h1>
-	<div id="labPage" data-role="page" data-theme="d">
-		<div data-role="content">
-			<form method="post" action="" data-ajax="false">
-				<div data-role="fieldcontain">
-					<label for="txtID">User ID:</label> <input type="text" name="txtID"
-						id="txtID" value="<?= $data->userId ?>" placeholder="請輸入帳號" />
-				</div>
-				<div data-role="fieldcontain">
-					<label for="txtPassword">Password:</label> <input type="password"
-						name="txtPassword" id="txtPassword" value="<?= $data->password ?>" />
-				</div>
-
-				<div class="ui-grid-a">
-					<div class="ui-block-a">
-						<input type="submit" name="btnOK" value="OK" />
-					</div>
-					<div class="ui-block-b">
-						<a href="index.php" data-role="button">Cancel</a>
-					</div>
-				</div>
-				<div>
-					<ul data-role="listview" data-inset="true">
-						<li data-role="list-divider">測試資料</li>
-						<li>User ID: derek</li>
-						<li>password: jeter</li>
-					</ul>
-				</div>
-			</form>
-		</div>
-
-	</div>
-	<!-- page -->
-
+    	</h1>
+   	</a>
+   <form method="post" action="">
+	<table>
+	    	
+               	<td scope="col">
+                    <label for="txtID">
+                    	User ID &nbsp;&nbsp;&nbsp;
+                    </label>
+					<input type="text" name="txtID"
+						   id="txtID" value="<?= $data->userId ?>"
+						   placeholder="請輸入帳號" />
+                </td>
+               
+    </table>
+    &nbsp;
+    <table>
+                <td scope="col">
+                    <label for="txtPassword">
+                    	Password
+                    </label> 
+					<input type="password" name="txtPassword" 
+						   id="txtPassword" value="<?= $data->password ?>"
+						   placeholder="請輸入密碼" />
+                </td>
+    </table>
+    &nbsp;
+    <table>
+        	
+    		<td scope="col">  
+    		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    		&nbsp;&nbsp;&nbsp;&nbsp;
+               	<a href="" data-role="button">
+					<button>建新帳號</button> 
+				</a>
+            </td>  
+ 				
+            <td scope="col">
+            	&nbsp;
+                	<input type="submit" name="btnOK" value="OK" />
+            </td>   
+            	
+            <td scope="col">
+            	&nbsp;
+              	<a href="/Project/Home/Index" data-role="button">
+					<button>取消</button> 
+				</a>
+            </td>
+        
+    </table>
+     </form>
 </body>
 </html>
+ <!--   User ID: derek-->
+	<!--password: jeter-->

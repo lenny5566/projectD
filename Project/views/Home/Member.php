@@ -6,14 +6,8 @@
 	<?php require("views/script_css.php") ?>
 </head>
 <body>
-	<div id="labPage" data-role="page" data-theme="d">
-		<?php require("NewCalendar/drag.html") ?>
-		<div data-role="content">
+		<div>
 			For member only.
 		</div>
-
-	</div>
-	<!-- page -->
-
 </body>
 </html>

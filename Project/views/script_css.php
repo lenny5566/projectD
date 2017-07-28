@@ -1,7 +1,7 @@
 
 <script src='js/jquery-1.9.1.js'></script>
 <script src='js/jquery-ui-1.10.3.js'></script>
-
+<script type="text/javascript" src="jquery.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
 
 <style>
@@ -27,10 +27,10 @@ h2
 h3 
 {
     text-align: center;
-    font-size: 50px;
+    font-size: 40px;
     color:#636363;
 }
-              
+        
 button.over
 {
   background : #9C9C9C;

@@ -14,7 +14,6 @@ class App {
         call_user_func_array(Array($controller, $methodName), $params);
     }
         
- 
     public function parseUrl() {
         $urlArray = Array();
         if (isset($_GET["url"])) {

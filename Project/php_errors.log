@@ -1,0 +1,12 @@
+[27-Jul-2017 08:50:03 UTC] PHP Warning:  require(views/script_css.php): failed to open stream: No such file or directory in /home/ubuntu/workspace/Project/NewCalendar/drag.php on line 14
+[27-Jul-2017 08:50:03 UTC] PHP Stack trace:
+[27-Jul-2017 08:50:03 UTC] PHP   1. {main}() /home/ubuntu/workspace/Project/NewCalendar/drag.php:0
+[27-Jul-2017 08:50:03 UTC] PHP Fatal error:  require(): Failed opening required 'views/script_css.php' (include_path='.:/usr/share/php:/usr/share/pear') in /home/ubuntu/workspace/Project/NewCalendar/drag.php on line 14
+[27-Jul-2017 08:50:03 UTC] PHP Stack trace:
+[27-Jul-2017 08:50:03 UTC] PHP   1. {main}() /home/ubuntu/workspace/Project/NewCalendar/drag.php:0
+[27-Jul-2017 09:07:36 UTC] PHP Warning:  require(/Project/views/script_css.php): failed to open stream: No such file or directory in /home/ubuntu/workspace/Project/NewCalendar/drag.php on line 14
+[27-Jul-2017 09:07:36 UTC] PHP Stack trace:
+[27-Jul-2017 09:07:36 UTC] PHP   1. {main}() /home/ubuntu/workspace/Project/NewCalendar/drag.php:0
+[27-Jul-2017 09:07:36 UTC] PHP Fatal error:  require(): Failed opening required '/Project/views/script_css.php' (include_path='.:/usr/share/php:/usr/share/pear') in /home/ubuntu/workspace/Project/NewCalendar/drag.php on line 14
+[27-Jul-2017 09:07:36 UTC] PHP Stack trace:
+[27-Jul-2017 09:07:36 UTC] PHP   1. {main}() /home/ubuntu/workspace/Project/NewCalendar/drag.php:0

@@ -13,7 +13,6 @@ class HomeController extends Controller {
         else
             header("Location: /Project/Member/Login");
     }
-
 }
 
 ?>
