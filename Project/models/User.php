@@ -1,10 +1,13 @@
 <?php
 
-class User {
+class User 
+{
     
     public $userId;
     public $password;
-
+    public $checkPassword;
+    public $mID;
+     
     public function isLoginPass() {
         $result = true;
         
@@ -22,13 +25,13 @@ class User {
     	$stmt->bindValue(':password', $this->md5Password, PDO::PARAM_STR);
     	$stmt->execute();
     
-    	$row = $stmt->fetch();
+    	$row = $stmt->fetch();  //類似mysql_fetch_row()
     	$db = null;
-	
+        $this->mID =$row[2];
 	    $result = ($row) ? true : false;
         return $result;
     }
-
+   
 }
 
 ?>

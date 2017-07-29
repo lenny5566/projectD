@@ -6,13 +6,13 @@ class HomeController extends Controller {
         $this->view("Home/Index");
     }
     
-    function Member() {
-        if ($_SESSION["userId"]) {
-            $this->view("Home/Member");
-        }
-        else
-            header("Location: /Project/Member/Login");
+    function Rand()
+    {
+        $randModel = $this->model("DBrand");
+        $row = $randModel->RandFood();
+        $this->view("Home/Rand", $row);
     }
+
 }
 
 ?>

@@ -1,4 +1,4 @@
-	<a href="/Project/Home/Index" style="text-decoration:none;">
+	<a href="/Project/Home/Index" style="text-decoration:none">
 		<h1 id="target" class="blue-text text-darken-2 animated rubberBand">
             吃飯行事曆
     	</h1>
@@ -8,7 +8,7 @@
                 <tr>
                     <td scope="col">
                         <h3>骰一個</h3>
-                        <a href="/Project/Rand/rand">
+                        <a href="/Project/Home/Rand">
                             <img src="/Project/css/images/dice.png" width="200" height="200">
                         </a> 
                     </td>

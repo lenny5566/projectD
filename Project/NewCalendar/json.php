@@ -1,7 +1,7 @@
 <?php
 include_once('connect.php');
 
-$sql = "select * from calendar where  mID ='1'";
+$sql = "select * from calendar";
 $query = mysql_query($sql);
 while($row=mysql_fetch_array($query))
 {
@@ -15,8 +15,7 @@ while($row=mysql_fetch_array($query))
 		   'end' => date('Y-m-d H:i',$row['endtime']),
 		   'url' => $row['url'],
 		'allDay' => $is_allday,
-		 'color' => $row['color'],
-		    'mID'=> $row['mID']
+		 'color' => $row['color']
 	);
 }
 echo json_encode($data);

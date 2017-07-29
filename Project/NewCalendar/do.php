@@ -28,15 +28,11 @@ else
 	echo '錯誤！';	
 }
 
-
-
 function ADD()	//新增事件
 {
-	$mID = 1;
-	
 	$events = stripslashes(trim($_POST['event']));//事件內容
-	$events=mysql_real_escape_string(strip_tags($events),$link); //過濾HTML標籤，轉譯特殊字元
-
+	$events = mysql_real_escape_string(strip_tags($events)); //過濾HTML標籤，轉譯特殊字元
+	
 	$isallday = $_POST['isallday'];//是否是全天事件
 	$isend = $_POST['isend'];//是否有結束時間
 
@@ -48,7 +44,7 @@ function ADD()	//新增事件
 
 	if($isallday==1 && $isend==1)
 	{
-		$starttime = strtotime($startdate);
+		$starttime = strtotime($startdate);   //strtotime將日期時間字串轉為自1970.1.1 00:00:00 GMT 起的秒數
 		$endtime = strtotime($enddate);
 	}
 	elseif($isallday==1 && $isend=="")
@@ -72,8 +68,8 @@ function ADD()	//新增事件
 	$isallday = $isallday?1:0;
 	
 	$query = mysql_query("insert into `calendar` 
-			(`title`,`starttime`,`endtime`,`allday`,`color`,`mID`) 
-			values ('$events','$starttime','$endtime','$isallday','$color','$mID')");
+			(`title`,`starttime`,`endtime`,`allday`,`color`) 
+			values ('$events','$starttime','$endtime','$isallday','$color')");
 	
 	if(mysql_insert_id()>0)  //確認新增
 	{
@@ -92,7 +88,7 @@ function Edit()    //更新事件
 		exit;	
 	}
 	$events = stripslashes(trim($_POST['event']));//事件內容
-	$events=mysql_real_escape_string(strip_tags($events),$link); //過濾HTML標籤，轉譯特殊字元
+	$events=mysql_real_escape_string(strip_tags($events)); //過濾HTML標籤，轉譯特殊字元
 
 	$isallday = $_POST['isallday'];//是否是全天事件
 	$isend = $_POST['isend'];//是否有结束時間
@@ -161,7 +157,7 @@ function Delete()   //刪除事件
 	}
 }
 
-function Drag()
+function Drag()  //事件拖曳
 {
 	$id = $_POST['id'];
 	$daydiff = (int)$_POST['daydiff']*24*60*60;
@@ -206,7 +202,7 @@ function Drag()
 	}
 }
 
-function Resize()
+function Resize()  //變更事件長度
 {
 	$id = $_POST['id'];
 	$daydiff = (int)$_POST['daydiff']*24*60*60;

@@ -20,7 +20,7 @@ h1
 h2 
 {
     text-align: center;
-    font-size: 70px;
+    font-size: 60px;
     color:#636363;
 }
        
@@ -66,7 +66,34 @@ html, body
     font-family: "微軟正黑體";
     color: #DFEBED;
     font-weight: bold;
-    background : #FFBB66;
+    background : #FFC8B4;
 }
+
+input[type="text"],
+	input[type="password"],
+	select,
+	textarea 
+	{
+		-moz-appearance: none;
+		-webkit-appearance: none;
+		-ms-appearance: none;
+		appearance: none;
+		border-radius: 4px;
+		border-style: solid;
+		border-width: 1px;
+		display: block;
+		outline: 0;
+		padding: 1em 4em;
+		text-decoration: none;
+		width: 100%;
+	}
+	
+	input[type="text"], input[type="password"], select, textarea
+	{
+        background-color: rgba(255, 255, 255, 0.34);
+        border-color: rgb(249, 249, 249);
+        color: inherit;
+	    
+	}
      
 </style>
