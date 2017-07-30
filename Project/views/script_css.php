@@ -13,21 +13,21 @@
 h1 
 {
     text-align: center;
-    font-size: 80px;
+    font-size: 70px;
     color:#636363;
 } 
 
 h2 
 {
     text-align: center;
-    font-size: 60px;
-    color:#636363;
+    font-size: 20px;
+    color:#FF3333;
 }
        
 h3 
 {
     text-align: center;
-    font-size: 40px;
+    font-size: 30px;
     color:#636363;
 }
         
@@ -56,9 +56,11 @@ button#choose
 
 table
 {
-   margin      : 0 auto;
-   line-height : 20px;
-   text-align  : center;
+   margin          : 0 auto;
+   line-height     : 15px;
+   text-align      : center;
+   border-collapse : separate;
+   border-spacing  : 60px 5px;
 }
 
 html, body
@@ -92,7 +94,7 @@ input[type="text"],
 	{
         background-color: rgba(255, 255, 255, 0.34);
         border-color: rgb(249, 249, 249);
-        color: inherit;
+        color: #636363;
 	    
 	}
      

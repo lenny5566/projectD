@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <title>Lab</title>
 <?php require("views/script_css.php") ?>
+
 </head>
 <body>
 	<a href="/Project/Home/Index" style="text-decoration:none;">
@@ -11,6 +12,9 @@
             吃飯行事曆
     	</h1>
    	</a>
+   	<?php if(isset($_SESSION["msg"])){?>
+             <h2><?= $_SESSION["msg"]?></h2>
+    <?php unset($_SESSION["msg"]); }?>    
    	<table>
    	    <form method="post" action="">
     	    	<tr>
@@ -59,5 +63,3 @@
         </table>
 </body>
 </html>
- <!--   User ID: derek-->
-	<!--password: jeter-->

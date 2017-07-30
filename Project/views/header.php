@@ -3,6 +3,7 @@
             吃飯行事曆
     	</h1>
    	</a>
+   	<h3>Hello! <?= $_SESSION["userId"] ?> </h3>
 	<table>
             <tbody>
                 <tr>

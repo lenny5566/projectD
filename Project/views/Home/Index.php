@@ -10,7 +10,6 @@
     <div>
             <?php include("views/header.php"); ?>
     </div>
-    <h3>Hello! <?= $_SESSION["userId"] ?> </h3>
     <h3>Hello! <?= $_SESSION["mId"] ?> </h3>
 </body>
 </html>

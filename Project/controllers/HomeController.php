@@ -2,7 +2,9 @@
 
 class HomeController extends Controller {
     
-    function Index() {
+    function Index() 
+    {
+        unset($_SESSION["msg"]);
         $this->view("Home/Index");
     }
     

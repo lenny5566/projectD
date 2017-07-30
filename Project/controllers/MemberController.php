@@ -3,7 +3,8 @@
 class MemberController extends Controller 
 {
     
-    function Login() {
+    function Login() 
+    {
         if ($_SERVER['REQUEST_METHOD'] == "POST")   //確認訪問的方法是POST
         {
             $this->postLogin();
@@ -24,32 +25,38 @@ class MemberController extends Controller
 
     function Create()
     {
-        $userModel = $this->model("Account");
-        $result    = $userModel->CreateMember();
-        if ($result) 
+        $userModel = $this->model("User");
+        if ($userModel->isLoginPass()) 
         {
-           $msg = "建立帳號成功!";
-           echo $msg;
-           $this->view("Member/Login",1, $msg);
+            $userModel->msg = "已經有人註冊了!換一個吧!@@";
+            $_SESSION["msg"] = $userModel->msg;
+            header("Location: /Project/Member/Member");
         }
-        else if($result == "wrong") 
-        {
-           $msg = "輸入有誤喔!請重新輸入";
-           echo $msg;
-           $this->view("Member/Member",1, $$msg);
+        else 
+        {   
+            $createModel = $this->model("Account");
+            $result = $createModel->CreateMember();
+            if ($result == "true") 
+            {
+               $createModel->msg = "帳號建立成功!用新帳號登入吧!";
+               $_SESSION["msg"] = $createModel->msg;
+               header("Location: /Project/Member/Login");
+            }
+            else if($result == "wrong") 
+            {
+               $createModel->msg = "輸入有誤喔!請重新輸入!";
+               $_SESSION["msg"] = $createModel->msg;
+               header("Location: /Project/Member/Member");
+            }
+            else
+            {
+               $createModel->msg = "建立帳號失敗!QAQ 再試一次吧";
+               $_SESSION["msg"] = $createModel->msg;
+               header("Location: /Project/Member/Member");
+            }
+           
         }
-        else if($result == "exisit") 
-        {
-           $msg = "已經有人註冊了!@@";
-           echo $msg;
-           $this->view("Member/Member",1, $$msg);
-        }
-        else
-        {
-           $msg = "建立帳號失敗!QAQ";
-           echo $msg;
-           $this->view("Member/Member",1, $$msg);
-        }
+      
     }
     
     function postLogin() 
@@ -62,7 +69,9 @@ class MemberController extends Controller
             header("Location: /Project/Home/Index");
         }
         else {
-            $this->view("Member/Login", $userModel);
+            $userModel->msg = "帳號好像不對耶...再試一次";
+            $_SESSION["msg"] = $userModel->msg;
+            header("Location: /Project/Member/Login");
         }
     }
     
@@ -71,6 +80,7 @@ class MemberController extends Controller
     {
         unset($_SESSION["userId"]);
         unset($_SESSION["mId"]);
+        unset($_SESSION["msg"]);
         header("Location: /Project/Home/Index");
     }
     

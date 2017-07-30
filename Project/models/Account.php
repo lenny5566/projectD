@@ -6,10 +6,11 @@ class Account
     public $userId;
     public $password;
     public $checkPassword;
- 
+    public $msg;
+    
     public function CreateMember()
     {
-        $result = true;
+        $result = "true";
         $erro = "";
         require ("config.php");
        
@@ -22,10 +23,7 @@ class Account
     	$this->checkPassword     = $_POST ["checkPassword"];
             //判斷帳號密碼是否為空值
             //確認密碼輸入的正確性
-         $check = mysqli_query($link,"select * from `member` where id = '$this->userId'");
-            $checkNum  = mysqli_num_rows($check);
-            if($checkNum == 0)
-            { 
+      
         if($this->userId != null && 		$this->password    != null &&
            	$this->checkPassword != null && $this->password == $this->checkPassword)
         {
@@ -39,23 +37,17 @@ class Account
                 }
                 else
                 {
-                    $result = false;
+                    $result = "false";
                     return $result;
                 }
          
         }
         else
         {   
-            $erro = "wrong";
-            return $erro;
+            $result = "wrong";
+            return $result;
         }
-                   
-            }
-            else
-            {
-                $erro = "exisit";
-                return $erro;
-            }
+                
     }
 }
     

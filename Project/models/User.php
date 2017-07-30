@@ -7,7 +7,8 @@ class User
     public $password;
     public $checkPassword;
     public $mID;
-     
+    public $msg;
+    
     public function isLoginPass() {
         $result = true;
         
