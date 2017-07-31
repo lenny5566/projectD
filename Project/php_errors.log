@@ -1,0 +1,18 @@
+[30-Jul-2017 15:02:26 UTC] PHP Warning:  require(views/script_css.php): failed to open stream: No such file or directory in /home/ubuntu/workspace/Project/NewCalendar/index.php on line 6
+[30-Jul-2017 15:02:26 UTC] PHP Stack trace:
+[30-Jul-2017 15:02:26 UTC] PHP   1. {main}() /home/ubuntu/workspace/Project/NewCalendar/index.php:0
+[30-Jul-2017 15:02:26 UTC] PHP Fatal error:  require(): Failed opening required 'views/script_css.php' (include_path='.:/usr/share/php:/usr/share/pear') in /home/ubuntu/workspace/Project/NewCalendar/index.php on line 6
+[30-Jul-2017 15:02:26 UTC] PHP Stack trace:
+[30-Jul-2017 15:02:26 UTC] PHP   1. {main}() /home/ubuntu/workspace/Project/NewCalendar/index.php:0
+[30-Jul-2017 15:02:46 UTC] PHP Warning:  require(Project/views/script_css.php): failed to open stream: No such file or directory in /home/ubuntu/workspace/Project/NewCalendar/index.php on line 6
+[30-Jul-2017 15:02:46 UTC] PHP Stack trace:
+[30-Jul-2017 15:02:46 UTC] PHP   1. {main}() /home/ubuntu/workspace/Project/NewCalendar/index.php:0
+[30-Jul-2017 15:02:46 UTC] PHP Fatal error:  require(): Failed opening required 'Project/views/script_css.php' (include_path='.:/usr/share/php:/usr/share/pear') in /home/ubuntu/workspace/Project/NewCalendar/index.php on line 6
+[30-Jul-2017 15:02:46 UTC] PHP Stack trace:
+[30-Jul-2017 15:02:46 UTC] PHP   1. {main}() /home/ubuntu/workspace/Project/NewCalendar/index.php:0
+[30-Jul-2017 15:03:19 UTC] PHP Warning:  require(/Project/views/script_css.php): failed to open stream: No such file or directory in /home/ubuntu/workspace/Project/NewCalendar/index.php on line 6
+[30-Jul-2017 15:03:19 UTC] PHP Stack trace:
+[30-Jul-2017 15:03:19 UTC] PHP   1. {main}() /home/ubuntu/workspace/Project/NewCalendar/index.php:0
+[30-Jul-2017 15:03:19 UTC] PHP Fatal error:  require(): Failed opening required '/Project/views/script_css.php' (include_path='.:/usr/share/php:/usr/share/pear') in /home/ubuntu/workspace/Project/NewCalendar/index.php on line 6
+[30-Jul-2017 15:03:19 UTC] PHP Stack trace:
+[30-Jul-2017 15:03:19 UTC] PHP   1. {main}() /home/ubuntu/workspace/Project/NewCalendar/index.php:0

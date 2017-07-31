@@ -1,7 +1,7 @@
 <?php
 
-class HomeController extends Controller {
-    
+class HomeController extends Controller 
+{
     function Index() 
     {
         unset($_SESSION["msg"]);
@@ -14,7 +14,6 @@ class HomeController extends Controller {
         $row = $randModel->RandFood();
         $this->view("Home/Rand", $row);
     }
-
 }
 
 ?>

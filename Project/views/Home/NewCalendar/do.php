@@ -1,8 +1,6 @@
 <?php
 include_once('connect.php');//連接資料庫
-
 $action = $_GET['action']; 
-
 if($action=='add')
 {
 	ADD();
@@ -32,7 +30,7 @@ function ADD()	//新增事件
 {
 	$events = stripslashes(trim($_POST['event']));//事件內容
 	$events = mysql_real_escape_string(strip_tags($events)); //過濾HTML標籤，轉譯特殊字元
-	
+
 	$isallday = $_POST['isallday'];//是否是全天事件
 	$isend = $_POST['isend'];//是否有結束時間
 
@@ -61,15 +59,15 @@ function ADD()	//新增事件
 		$starttime = strtotime($startdate.' '.$s_time);
 	}
 
-	$colors = array("#360","#f30","#06c","#E63F00"); //事件標籤顏色
+	$colors = array("#77DDFF","#66FF66","#F4A460","#FF8888","D28EFF"); //事件標籤顏色
 	$key = array_rand($colors);
 	$color = $colors[$key];
 
+	$mid=1;
 	$isallday = $isallday?1:0;
-	
 	$query = mysql_query("insert into `calendar` 
-			(`title`,`starttime`,`endtime`,`allday`,`color`) 
-			values ('$events','$starttime','$endtime','$isallday','$color')");
+			(`title`,`starttime`,`endtime`,`allday`,`color`,`mID`) 
+			values ('$events','$starttime','$endtime','$isallday','$color','$mid')");
 	
 	if(mysql_insert_id()>0)  //確認新增
 	{

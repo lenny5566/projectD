@@ -1,13 +1,16 @@
 <link rel="stylesheet" type="text/css" href="css/fullcalendar.css">
 <link rel="stylesheet" type="text/css" href="css/fancybox.css">
 <link rel="stylesheet" type="text/css" href="css/calendar.css">
+<link rel="stylesheet" type="text/css" href="css/jquery-ui.css">
 
 <script src='js/jquery-1.9.1.js'></script>
 <script src='js/jquery-ui-1.10.3.js'></script>
 <script src='js/fullcalendar.min.js'></script>
 <script src='js/jquery.fancybox-1.3.1.pack.js'></script>
+<script type="text/javascript" src="js/jquery.form.min.js"></script>
 
 <script type="text/javascript">
+
 $(function() 
 {
 	$('#calendar').fullCalendar(
@@ -19,8 +22,10 @@ $(function()
 			right	: 'month,agendaWeek,agendaDay'
 		},
 		
-		editable: true,
-		dragOpacity: 
+		events: "json.php",
+    	
+		editable : true,
+		dragOpacity : 
 		{
 			agenda	: .5,
 			''		: .6,
@@ -71,8 +76,6 @@ $(function()
 			);
 		},
 		
-		events: 'json.php',
-		
 		dayClick: function(date, allDay, jsEvent, view)
 		{
 			var selDate = $.fullCalendar.formatDate(date,'yyyy-MM-dd');
@@ -94,6 +97,5 @@ $(function()
 			);
 		}
 	});
-
 });
 </script>

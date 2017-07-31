@@ -1,5 +1,6 @@
-	<a href="/Project/Home/Index" style="text-decoration:none">
-		<h1 id="target" class="blue-text text-darken-2 animated rubberBand">
+
+	<a href="/Project/Home/Index">
+		<h1 id="target" class="animated rubberBand">
             吃飯行事曆
     	</h1>
    	</a>
@@ -24,7 +25,7 @@
                     <?php else: ?>
                     <td scope="col">
                         <h3>行事曆</h3>
-                        <a href="/Project/NewCalendar/drag.php">
+                        <a href="/Project/views/Home/NewCalendar/index.php?mID=<?=$_SESSION["mId"]?>">
                             <img src="/Project/css/images/Schedule.png" width="200" height="200">
                         </a> 
                     </td>

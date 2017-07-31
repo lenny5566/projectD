@@ -2,7 +2,6 @@
 
 class Account 
 {
-    
     public $userId;
     public $password;
     public $checkPassword;
@@ -40,7 +39,6 @@ class Account
                     $result = "false";
                     return $result;
                 }
-         
         }
         else
         {   
