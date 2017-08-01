@@ -7,7 +7,7 @@ class Account
     public $checkPassword;
     public $msg;
     
-    public function CreateMember()
+    public function CreateMember()  //建立帳號
     {
         $result = "true";
         $erro = "";
@@ -20,11 +20,9 @@ class Account
         $this->userId       = $_POST ["txtID"];
     	$this->password      = $_POST ["txtPassword"];
     	$this->checkPassword     = $_POST ["checkPassword"];
-            //判斷帳號密碼是否為空值
-            //確認密碼輸入的正確性
       
-        if($this->userId != null && 		$this->password    != null &&
-           	$this->checkPassword != null && $this->password == $this->checkPassword)
+        if($this->userId != null && 		$this->password    != null &&              //判斷帳號密碼是否為空值
+           $this->checkPassword != null && $this->password == $this->checkPassword)     //確認密碼輸入的正確性
         {
            
                 $this->md5Password = md5 ( $this->password );

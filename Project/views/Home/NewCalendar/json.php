@@ -1,8 +1,7 @@
 <?php
 
 include_once('connect.php');
-$mid = 1;
-$sql = "select * from `calendar` where mID = $mid";
+$sql = "select * from `calendar`";
 $query = mysql_query($sql);
 while($row=mysql_fetch_array($query))
 {

@@ -25,7 +25,8 @@
                     <?php else: ?>
                     <td scope="col">
                         <h3>行事曆</h3>
-                        <a href="/Project/views/Home/NewCalendar/index.php?mID=<?=$_SESSION["mId"]?>">
+                        <!--<a href="/Project/views/Home/NewCalendar/index.php?mID=<?=$_SESSION["mId"]?>">-->
+                        <a href="/Project/views/Home/NewCalendar/index.php">
                             <img src="/Project/css/images/Schedule.png" width="200" height="200">
                         </a> 
                     </td>

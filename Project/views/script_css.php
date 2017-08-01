@@ -82,6 +82,8 @@ input[type="submit"], input[type="reset"], button
     cursor         : pointer;
     border-radius  : 5px;
     -webkit-border-radius : 5px;
+    font-family: "微軟正黑體";
+    color: #636363;
 }
 
 </style>

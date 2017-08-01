@@ -28,7 +28,7 @@ else
 
 function ADD()	//新增事件
 {
-	$events = stripslashes(trim($_POST['event']));//事件內容
+	$events = stripslashes(trim($_POST['event']));//過濾空白和斜線，事件內容
 	$events = mysql_real_escape_string(strip_tags($events)); //過濾HTML標籤，轉譯特殊字元
 
 	$isallday = $_POST['isallday'];//是否是全天事件

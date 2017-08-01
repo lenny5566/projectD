@@ -13,25 +13,25 @@
 
 $(function() 
 {
-	$('#calendar').fullCalendar(
+	$('#calendar').fullCalendar( 
 	{
-		header: 
+		header: 	//日曆標頭
 		{ 
 			left	: 'prev,next today',
 			center	: 'title',
 			right	: 'month,agendaWeek,agendaDay'
 		},
 		
-		events: "json.php",
+		events: "json.php",   //物件屬性
     	
-		editable : true,
-		dragOpacity : 
+		editable : true,     //物件允許編輯
+		dragOpacity :		 //物件拖曳時的透明度
 		{
 			agenda	: .5,
 			''		: .6,
 		},
 		
-		eventDrop: function(event,dayDelta,minuteDelta,allDay,revertFunc) 
+		eventDrop: function(event,dayDelta,minuteDelta,allDay,revertFunc)  //物件拖曳
 		{
 			$.post("do.php?action=drag"
 				    ,{id:event.id,daydiff:dayDelta,minudiff:minuteDelta,allday:allDay}
@@ -46,7 +46,7 @@ $(function()
 			);
     	},
 		
-		 eventResize: function(event,dayDelta,minuteDelta,revertFunc) 
+		 eventResize: function(event,dayDelta,minuteDelta,revertFunc)		//物件長度變更
 		 {
 			$.post("do.php?action=resize"
 					,{id:event.id,daydiff:dayDelta,minudiff:minuteDelta}
@@ -61,7 +61,7 @@ $(function()
 			);
     	 },
 		
-		selectable: true,
+		selectable: true,   //允許點擊和拖曳來選擇
 		
 		select: function( startDate, endDate, allDay, jsEvent, view )
 		{
@@ -76,7 +76,7 @@ $(function()
 			);
 		},
 		
-		dayClick: function(date, allDay, jsEvent, view)
+		dayClick: function(date, allDay, jsEvent, view)  
 		{
 			var selDate = $.fullCalendar.formatDate(date,'yyyy-MM-dd');
 			$.fancybox(
