@@ -28,13 +28,11 @@
                 $j = $j-1;
             }
             
+            if (!isset ($array[$i][$j]) ) {
+                $array[$i][$j] = "0";
+            }
             if ($array[$i][$j] == 0) {
-                if (isset ($array[$i][$j]) ) {
-                    $array[$i][$j] = "";
-                    $array[$i][$j] = $key;
-                } else {
-                    $array[$i][$j] = $key;
-                }
+                $array[$i][$j] = $key;
             } elseif ($array[$i][$j] != 0) {
                 if ($i+2 > $number-1) {
                     $i = $i+2-$number;
@@ -47,12 +45,7 @@
                 } else {
                     $j = $j+1;
                 }
-                if (isset ($array[$i][$j]) ) {
-                    $array[$i][$j] = "";
-                    $array[$i][$j] = $key;
-                } else {
-                    $array[$i][$j] = $key;
-                }
+                $array[$i][$j] = $key;
             }
         }
         print_array($array, $number);
