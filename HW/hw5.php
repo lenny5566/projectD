@@ -48,7 +48,8 @@
     }
     print_array($array, $number);
     
-    function print_array($array, $number) {
+    function print_array($array, $number) 
+    {
         echo "┌─";
         for ($i = 0; $i < $number-1; $i++) {
             echo "┬─";
@@ -56,9 +57,11 @@
         echo "┐<br>";
         for ($i = 0; $i < $number; $i++) {
             echo "│";
+            $count = $number;
             for ($j = 0; $j < $number; $j++) {
+                $count = $count-1;
                 if ($array[$i][$j]!=0) {
-                    echo $array[$i][$j]."│";
+                    echo $array[$i][$count]."│";
                 } else {
                     echo "&nbsp│";
                 }
