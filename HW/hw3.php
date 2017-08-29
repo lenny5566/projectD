@@ -10,10 +10,10 @@
 <?php
 
     session_start();
-    if (isset ($_POST[Submit])) {
-        $number_n     = $_POST[n];
-        $number_k     = $_POST[k];
-        if ($number_n == "" || strlen($number_n) > 1 || $number_k == "" || strlen($number_k) > 1) {
+    if (isset ($_POST['Submit'])) {
+        $number_n     = $_POST['n'];
+        $number_k     = $_POST['k'];
+        if ($number_n == "" || $number_k == "") {
             echo "Please enter right numbers";
         } else {
             $all_light[]  = "";

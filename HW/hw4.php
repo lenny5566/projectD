@@ -6,14 +6,13 @@
 </form>
 <?php
 
-    session_start();
-    if (isset ($_POST[Submit])) {
-        $string = $_POST[string];
+   if (isset ($_POST['Submit'])) {
+        $string = $_POST['string'];
         $count = strlen($string);
         anti_string($count, $string);
     }
 
-    function anti_string($count, $string = [])
+    function anti_string($count, $string = array())
     {
         if ($count == 0) {
             return;

@@ -7,8 +7,8 @@
 <?php
     header("Content-Type:text/html; charset=utf-8");
     session_start();
-    if (isset ($_POST[Submit])) {
-        $number = $_POST[number];
+    if (isset ($_POST['Submit'])) {
+        $number = $_POST['number'];
         $array[$number][$number] = "0";
         $key = 1;
         $i = 0; //i,j are coordinates
@@ -29,7 +29,12 @@
             }
             
             if ($array[$i][$j] == 0) {
-                $array[$i][$j] = $key;
+                if (isset ($array[$i][$j]) ) {
+                    $array[$i][$j] = "";
+                    $array[$i][$j] = $key;
+                } else {
+                    $array[$i][$j] = $key;
+                }
             } elseif ($array[$i][$j] != 0) {
                 if ($i+2 > $number-1) {
                     $i = $i+2-$number;
@@ -42,11 +47,16 @@
                 } else {
                     $j = $j+1;
                 }
-                $array[$i][$j] = $key;
+                if (isset ($array[$i][$j]) ) {
+                    $array[$i][$j] = "";
+                    $array[$i][$j] = $key;
+                } else {
+                    $array[$i][$j] = $key;
+                }
             }
         }
+        print_array($array, $number);
     }
-    print_array($array, $number);
     
     function print_array($array, $number) 
     {
