@@ -9,12 +9,15 @@
     session_start();
     $number_a = 0;
     $number_b = 0;
+    if (!isset ($_SESSION['total']) ) {
+        $_SESSION['total'] = "";
+    }
     if (!isset ($_SESSION['rand_number']) ) {
         $_SESSION['rand_number'] = rand_number();
     }
     if (isset ($_POST['Submit']) ) {
         $guess  = $_POST['guess'];
-        if ($_POST['guess'] == "" || strlen($_POST['guess']) > 4) {
+        if ($guess == "" || strlen($guess) > 4) {
             echo "Please enter right numbers";
         } else {
             $number_answer = $_SESSION['rand_number'];
@@ -28,9 +31,9 @@
                 }
             }
             if ($number_a != 4) {
-                $total = $_SESSION['total'].$guess.":".$number_a."A".$number_b."B<br>";
-                $_SESSION['total'] = $total;
-                echo $total;
+                    $total = $_SESSION['total'].$guess.":".$number_a."A".$number_b."B<br>";
+                    $_SESSION['total'] = $total;
+                    echo $total;
             } else {
                 echo "Right number ! Answer is:".$number_answer;
                 session_destroy();
@@ -40,7 +43,6 @@
     
     function rand_number()
     {
-        $a[]    = "";
         $answer  = "";
         for ($i = 1; $i <= 4; $i++) {
             $num = rand(0,9);
@@ -53,9 +55,7 @@
                     $j   = 0;
                 }
             }
-            if (isset ($a[$i]) ) {
-                $a[$i] = $num;
-            }
+            $a[$i] = $num;
         }
         foreach ($a as $value) {
             $answer .= $value;
