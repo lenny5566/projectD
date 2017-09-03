@@ -11,7 +11,7 @@
             $sql_query = "INSERT INTO list (name, gender, phone, birthday, address, email)
                         VALUES (?, ?, ?, ?, ?, ?)";
             $stmt = $db_link->prepare($sql_query);
-            $stmt->bind_param("sissss",
+            $stmt->bind_param("ssssss",
                 get_sqlValue($_POST["name"], 'string'),
                 $_POST["gender"],
                 get_sqlValue($_POST["phone"], 'string'),
@@ -42,8 +42,8 @@
             <p><strong>Name</strong>：
                 <input name="name" type="text" class="input" id="name">
             <p><strong>Gender</strong>：
-                <input name="gender" type="radio" value="0" checked>Female
-                <input name="gender" type="radio" value="1">Male
+                <input name="gender" type="radio" value="Female" checked>Female
+                <input name="gender" type="radio" value="Male">Male
             <p><strong>Phone</strong>：
                 <input name="phone" type="text" class="input" id="phone"></p>    
             <p><strong>birthday</strong>：

@@ -6,7 +6,7 @@
             $sql_query = "UPDATE list SET name=?, gender=?, phone=?, birthday=?, address=?, email=?
                         WHERE id=?";
             $stmt = $db_link->prepare($sql_query);
-            $stmt->bind_param("sissssi",
+            $stmt->bind_param("ssssssi",
                 get_sqlValue($_POST["name"], 'string'),
                 $_POST["gender"],
                 get_sqlValue($_POST["phone"], 'string'),
@@ -38,12 +38,12 @@
             <p><strong>Name</strong>：
                 <input name="name" type="text" class="input" id="name" value="<?php echo $row_Record["name"]; ?>"> </p>
             <p><strong>Gender</strong>：
-                <?php if (isset ($row_Record["gender"]) && $row_Record["gender"] == "0") { ?>
-                    <input name="gender" type="radio" value="0" checked>Female
-                    <input name="gender" type="radio" value="1">Male
+                <?php if (isset ($row_Record["gender"]) && $row_Record["gender"] == "Female") { ?>
+                    <input name="gender" type="radio" value="Female" checked>Female
+                    <input name="gender" type="radio" value="Male">Male
                 <?php } else { ?>
-                    <input name="gender" type="radio" value="0">Female
-                    <input name="gender" type="radio" value="1" checked>Male
+                    <input name="gender" type="radio" value="Female">Female
+                    <input name="gender" type="radio" value="Male" checked>Male
                 <?php } ?> </p>
             <p><strong>Phone</strong>：
                 <input name="phone" type="text" class="input" id="phone" value="<?php echo $row_Record["phone"]; ?>"> </p>

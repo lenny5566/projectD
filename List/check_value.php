@@ -18,7 +18,7 @@ function checkForm()
 		document.formJoin.birthday.focus();
 		return false;
 	}
-	
+
 	if (document.formJoin.address.value == "") {
 		alert("Please enter Address!");
 		document.formJoin.address.focus();

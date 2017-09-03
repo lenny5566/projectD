@@ -20,13 +20,6 @@ h3 {
     font-size   : 30px;
     color       : #636363;
 }
-        
-table {
-   line-height     : 20px;
-   text-align      : center;
-   border-collapse : separate;
-   border-spacing  : 50px 5px;
-}
 
 a {
     color           : #636363;
@@ -35,12 +28,15 @@ a {
 
 table {
     width : 100%;
+    line-height      : 20px;
+    text-align       : center;
+    border-spacing   : 50px 5px;
     border-collapse  : collapse;
-    background-color : white; 
+    background-color : #DDDDDD;
 }
 
 table, td, th {
-    border  : 1px solid black;
+    border  : 1px solid #636363;
     padding : 5px;
 }
 
@@ -51,15 +47,14 @@ html, body {
     background : white;
 }
 
-.errDiv {
-    color: #FF3333;
+div {
+    margin      : 0px auto;
     text-align  : center;
-    font-size   : 30px;
 }
 
 input[type="submit"], input[type="reset"], input[type="text"], input[type="button"], button, select {
     padding        : 5px 15px;
-    background     : #DDDDDD;
+    background     : #C0C0C0;
     border         : 0 none ;
     cursor         : pointer;
     border-radius  : 5px;
