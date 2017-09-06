@@ -1,88 +1,64 @@
 <script language="javascript">
 function checkForm()
 {
-	if (document.formJoin.name.value == "") {		
-		alert("Please enter Name!");
+	if (document.formJoin.num.value == "") {		
+		alert("Please enter ISBN!");
+		document.formJoin.num.focus();
+		return false;
+	}
+	
+	if (document.formJoin.press.value == "") {
+		alert("Please enter Press!");
+		document.formJoin.press.focus();
+		return false;
+	}
+	
+	if (document.formJoin.name.value == "") {
+		alert("Please enter Book name!");
 		document.formJoin.name.focus();
 		return false;
 	}
 	
-	if (document.formJoin.phone.value == "") {
-		alert("Please enter Phone!");
-		document.formJoin.phone.focus();
+	if (document.formJoin.author.value == "") {
+		alert("Please enter Author!");
+		document.formJoin.author.focus();
+		return false;
+	}
+	
+	if (document.formJoin.prize.value == "") {
+		alert("Please enter Prize!");
+		document.formJoin.prize.focus();
 		return false;
 	}
 
-	if (!check_phone(document.formJoin.phone) ) {
-		document.formJoin.phone.focus();
+	if (document.formJoin.day.value == "") {
+		alert("Please enter Day!");
+		document.formJoin.day.focus();
 		return false;
 	}
 	
-	if (document.formJoin.birthday.value == "") {
-		alert("Please enter Birthday!");
-		document.formJoin.birthday.focus();
+	if (!check_day(document.formJoin.day) ) {
+		document.formJoin.day.focus();
 		return false;
 	}
-	
-	if (!check_birthday(document.formJoin.birthday) ) {
-		document.formJoin.birthday.focus();
-		return false;
-	}
-
-	if (document.formJoin.address.value == "") {
-		alert("Please enter Address!");
-		document.formJoin.address.focus();
-		return false;
-	}
-	
-	if (document.formJoin.email.value == "") {
-		alert("Please enter E-mail!");
-		document.formJoin.email.focus();
-		return false;
-	}
-	
-	if (!check_mail(document.formJoin.email) ) {
-		document.formJoin.email.focus();
-		return false;
-	}
-		
 	return confirm('Sure send data?');
 }
 
-function check_phone(phone)
-{
-	var filter  = /^\d{4}-\d{6}$/;
-	if (filter.test(phone.value) ) {
-		return true;
-	}
-	alert("Phone type isn't correct!");
-	return false;
-}
-
-function check_birthday(birthday)
+function check_day(day)
 {
 	var filter  = /^(19|20)\d{2}-(0[1-9]|1[0-2])-(0[1-9]|1\d|2\d|3[0-1])$/;
-	if (filter.test(birthday.value) ) {
+	if (filter.test(day.value) ) {
 		return true;
 	}
-	alert("birthday type isn't correct!");
+	alert("Day type isn't correct!");
 	return false;
 }
 
-function check_mail(email)
-{
-	var filter  = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-	if (filter.test(email.value) ) {
-		return true;
-	}
-	alert("E-mail type isn't correct!");
-	return false;
-}
 </script>
 
 <?php
     //過濾資料格式
-    function get_sqlValue($value, $type) 
+    function get_Value($value, $type) 
     {
       switch ($type) {
         case "string":
@@ -90,9 +66,6 @@ function check_mail(email)
             break;
         case "int":
             $theValue = ($theValue != "") ? filter_var($theValue, FILTER_SANITIZE_NUMBER_INT) : "";
-            break;
-        case "email":
-            $value = ($value != "") ? filter_var($value, FILTER_VALIDATE_EMAIL) : "";
             break;
       }
         return $value;

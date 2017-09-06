@@ -1,11 +1,22 @@
 <?php
 
     if (isset ($_POST["action"] ) && ($_POST["action"] == "delete" )) {
-        $file  = fopen("book.txt", "r+");
-        while ($list = fgets($input) ) {
-            fputs($file, $list);
+        if (isset ($_GET["id"] ) ) {
+            $count = $_GET["id"];
+        }
+        $file     = fopen("book.txt", "r");
+        $tmp_file = fopen("tmp.txt",'w');
+        $line_no  = 1;
+        while (!feof ($file) ) {
+            $line = fgets($file);
+            if ($line_no != $count) {
+                fputs($tmp_file, $line);
+            }
+            $line_no++;
         }
         fclose($file);
+        fclose($tmp_file);
+        rename("tmp.txt","book.txt");
         header("Location: list.php");
     }
 ?>

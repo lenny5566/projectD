@@ -2,15 +2,27 @@
 
 if (isset ($_POST['select_1']) && isset ($_POST['select_2']) ) {
     $choose = $_POST['select_1'];
-    $string = $_POST['select_2'];
-    $file = fopen("book.txt", "r");
-
+    $sort   = $_POST['select_2'];
+    $file   = fopen("book.txt", "r");
+    $row_Record = array();
     if ($choose == "1") {
         print_table($file);
-    } elseif ($choose == "2") {
-        print_table($result);
     } else {
-        print_table($result);
+        while (!feof ($file) ) {
+            $row_Record = fgetcsv($file);
+        }
+        if ($choose == "press") {
+            print_r($row_Record);
+            print_table($result);
+        } elseif ($choose == "name") {
+            print_table($result);
+        } elseif ($choose == "author") {
+            print_table($result);
+        } elseif ($choose == "prize") {
+            print_table($result);
+        } elseif ($choose == "day") {
+            print_table($result);
+        }
     }
 }
 

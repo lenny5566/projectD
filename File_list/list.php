@@ -13,7 +13,7 @@
                 type: 'post',
                 data: {
                 	select_1: 1,
-                	select_2: 0
+                	select_2: 1
                  },
                 success: function(response)
                 {
@@ -22,7 +22,7 @@
                 }
             });
 
-        $('#select_1').click(function ()
+        $('#select_1, #select_2').click(function ()
         {
             $.ajax({
                 url: 'data.php',
