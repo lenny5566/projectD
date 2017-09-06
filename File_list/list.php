@@ -12,8 +12,7 @@
                 dataType: 'html',
                 type: 'post',
                 data: {
-                	select_1: 1,
-                	select_2: 1
+                	index : 1
                  },
                 success: function(response)
                 {
@@ -22,7 +21,7 @@
                 }
             });
 
-        $('#select_1, #select_2').click(function ()
+        $('#select_1').change(function ()
         {
             $.ajax({
                 url: 'data.php',
@@ -30,9 +29,26 @@
                 dataType: 'html',
                 type: 'post',
                 data: {
-                	select_1: $("#select_1").find(":selected").val(),
+                	select_1: $("#select_1").find(":selected").val()
+                },
+                success: function(response)
+                {
+                    $('#msg').html(response);
+                    $('#msg').fadeIn();
+                }
+            });
+        });
+        
+        $('#select_2').change(function ()
+        {
+            $.ajax({
+                url: 'data.php',
+                cache: false,
+                dataType: 'html',
+                type: 'post',
+                data: {
                 	select_2: $("#select_2").find(":selected").val()
-                 },
+                },
                 success: function(response)
                 {
                     $('#msg').html(response);
@@ -46,17 +62,19 @@
 <body onload="load_list()">
     <br><br><br><br><br>
     <div id="enter">
-        <form action="add.php" method="post" enctype="multipart/form-data">
+        <form action="add_file.php" method="post" enctype="multipart/form-data">
         輸入資料 <input type="file" name="file" id="file" size="20" class="ifile"
         onchange="this.form.upfile.value = this.value.substr(this.value.lastIndexOf('\\')+1);">
             <input type="text" name="upfile" size="20" readonly>
             <input type="button" value="瀏覽..." onclick="this.form.file.click();">
+            <input type="Submit" name="Submit" value="上傳">
+        </form>
     </div>
     <br><br>
     <div id="choose">
         排序
         <select id="select_1">
-            <option value="press">出版社</option>
+            <option value="press" selected>出版社</option>
             <option value="name">書名</option>
             <option value="author">作者</option>
             <option value="prize">定價</option>
@@ -72,10 +90,11 @@
     <div id="msg"></div>
     <br>
     <div style="text-align:center;">
-        <input type="Submit" name="Submit" value="ADD">
-        </form>
         <button>
-            <a href="">匯出</a>
+            <a href="add_list.php">ADD</a>
+        </button>
+        <button>
+            <a href="book.txt" download>匯出</a>
         </button>
     </div>
 </body>

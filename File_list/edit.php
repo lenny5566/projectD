@@ -1,50 +1,50 @@
 <?php
-    require("check_value.php");
-    if (isset ($_GET["id"] ) ) {
-        $count = $_GET["id"];
-        $row_Record = array();
-        $file     = fopen("book.txt", "r");
-        $tmp_file = fopen("tmp.txt", "w");
-        $line_no  = 1;
-        while (!feof ($file) ) {
-            $line = fgets($file);
-            if ($line_no == $count) {
-                fputs($tmp_file, $line);
-            }
-            $line_no++;
-        }
-        fclose($tmp_file);
-        $tmp_file = fopen("tmp.txt", "r");
-        while (!feof ($tmp_file) ) {
-            $row_Record = fgetcsv($tmp_file);
-        }
-    }
+    // require("check_value.php");
+    // if (isset ($_GET["id"] ) ) {
+    //     $count = $_GET["id"];
+    //     $row_Record = array();
+    //     $file     = fopen("book.txt", "r");
+    //     $tmp_file = fopen("tmp.txt", "w");
+    //     $line_no  = 1;
+    //     while (!feof ($file) ) {
+    //         $line = fgets($file);
+    //         if ($line_no == $count) {
+    //             fputs($tmp_file, $line);
+    //         }
+    //         $line_no++;
+    //     }
+    //     fclose($tmp_file);
+    //     $tmp_file = fopen("tmp.txt", "r");
+    //     while (!feof ($tmp_file) ) {
+    //         $row_Record = fgetcsv($tmp_file);
+    //     }
+    // }
 
-    if (isset ($_POST["action"] ) && ($_POST["action"] == "edit" )) {
-        $num      = get_Value($_POST["num"], 'string');
-	    $press    = get_Value($_POST["press"], 'string');
-        $name     = get_Value($_POST["name"], 'string');
-        $author   = get_Value($_POST["author"], 'string');
-        $prize    = get_Value($_POST["prize"], 'int');
-        $day      = get_Value($_POST["day"], 'int');
-        $row      = $num.",".$press.",".$name.",".$author.",".$prize.",".$day."\n";
-        $file     = fopen("book.txt", "r");
-        $tmp_file = fopen("tmp.txt", "w");
-        $line_no  = 1;
-        while (!feof ($file) ) {
-            $line = fgets($file);
-            if ($line_no == $count) {
-                fputs($tmp_file, $row);
-            } else {
-                fputs($tmp_file, $line);
-            }
-            $line_no++;
-        }
-        fclose($file);
-        fclose($tmp_file);
-        rename("tmp.txt","book.txt");
-        header("Location: list.php");
-    }
+    // if (isset ($_POST["action"] ) && ($_POST["action"] == "edit" )) {
+    //     $num      = get_Value($_POST["num"], 'string');
+	   // $press    = get_Value($_POST["press"], 'string');
+    //     $name     = get_Value($_POST["name"], 'string');
+    //     $author   = get_Value($_POST["author"], 'string');
+    //     $prize    = get_Value($_POST["prize"], 'int');
+    //     $day      = get_Value($_POST["day"], 'int');
+    //     $row      = $num.",".$press.",".$name.",".$author.",".$prize.",".$day."\n";
+    //     $file     = fopen("book.txt", "r");
+    //     $tmp_file = fopen("tmp.txt", "w");
+    //     $line_no  = 1;
+    //     while (!feof ($file) ) {
+    //         $line = fgets($file);
+    //         if ($line_no == $count) {
+    //             fputs($tmp_file, $row);
+    //         } else {
+    //             fputs($tmp_file, $line);
+    //         }
+    //         $line_no++;
+    //     }
+    //     fclose($file);
+    //     fclose($tmp_file);
+    //     rename("tmp.txt","book.txt");
+    //     header("Location: list.php");
+    // }
 ?>
 <!DOCTYPE html>
 <html>

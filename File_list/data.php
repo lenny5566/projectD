@@ -1,29 +1,46 @@
 <?php
 
-if (isset ($_POST['select_1']) && isset ($_POST['select_2']) ) {
+if (isset ($_POST['index']) ) {
+    $file   = fopen("book.txt", "r");
+    print_table($file);
+}
+
+if (isset ($_POST['select_1']) ) {
     $choose = $_POST['select_1'];
+    $file   = fopen("book.txt", "r");
+    $row_Record = array();
+    
+    while (!feof ($file) ) {
+        $row_Record = fgetcsv($file);
+    }
+    if ($choose == "press") {
+        echo "1";
+    } elseif ($choose == "name") {
+        echo "2";
+    } elseif ($choose == "author") {
+        echo "3";
+    } elseif ($choose == "prize") {
+        echo "4";
+    } elseif ($choose == "day") {
+        echo "5";
+    }
+}
+
+if (isset ($_POST['select_2']) ) {
     $sort   = $_POST['select_2'];
     $file   = fopen("book.txt", "r");
     $row_Record = array();
-    if ($choose == "1") {
-        print_table($file);
-    } else {
-        while (!feof ($file) ) {
-            $row_Record = fgetcsv($file);
-        }
-        if ($choose == "press") {
-            print_r($row_Record);
-            print_table($result);
-        } elseif ($choose == "name") {
-            print_table($result);
-        } elseif ($choose == "author") {
-            print_table($result);
-        } elseif ($choose == "prize") {
-            print_table($result);
-        } elseif ($choose == "day") {
-            print_table($result);
-        }
+    
+    while (!feof ($file) ) {
+        $row_Record = fgetcsv($file);
     }
+        if ($sort == "1") {
+            echo "go";
+            // print_table($result);
+        } else {
+            echo "go000";
+            // print_table($result);
+        }
 }
 
 function print_table($file)
