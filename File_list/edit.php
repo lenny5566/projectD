@@ -1,24 +1,19 @@
 <?php
-    // require("check_value.php");
-    // if (isset ($_GET["id"] ) ) {
-    //     $count = $_GET["id"];
-    //     $row_Record = array();
-    //     $file     = fopen("book.txt", "r");
-    //     $tmp_file = fopen("tmp.txt", "w");
-    //     $line_no  = 1;
-    //     while (!feof ($file) ) {
-    //         $line = fgets($file);
-    //         if ($line_no == $count) {
-    //             fputs($tmp_file, $line);
-    //         }
-    //         $line_no++;
-    //     }
-    //     fclose($tmp_file);
-    //     $tmp_file = fopen("tmp.txt", "r");
-    //     while (!feof ($tmp_file) ) {
-    //         $row_Record = fgetcsv($tmp_file);
-    //     }
-    // }
+    require("check_value.php");
+    if (isset ($_GET["id"] ) ) {
+        $count = $_GET["id"];
+        $row_Record = array();
+        $file     = fopen("book.txt", "r");
+        $line_no  = 1;
+        while (!feof ($file) ) {
+            $line = fgetcsv($file);
+            if ($line_no == $count) {
+                $row_Record = $line;
+            }
+            $line_no++;
+        }
+        fclose($file);
+    }
 
     // if (isset ($_POST["action"] ) && ($_POST["action"] == "edit" )) {
     //     $num      = get_Value($_POST["num"], 'string');
