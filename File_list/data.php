@@ -20,10 +20,11 @@ if (isset ($_POST['select_1']) || isset ($_POST['select_2']) ) {
 	    print_r($arr_newdata);
     } else {
         $arr_newdata = sort_data($choose, $sort);
-        foreach ($arr_newdata as $key => $value) {
+        print_r(array_merge($arr_newdata));
+        // foreach ($arr_newdata as $key => $value) {
             
-        }
-	    print_r($arr_newdata);
+        // }
+	   // print_r($arr_newdata);
     }
 }
 
@@ -35,22 +36,13 @@ function read_data($filestr)
     $tmp_array = explode("\n", $tmp_data); 
     foreach ($tmp_array as $key => $value) {
         $data = explode(",", $value);
-        if ($key > 0) {
-            $arr_data[$no][$item1] = $data[0];
-            $arr_data[$no][$item2] = $data[1];
-            $arr_data[$no][$item3] = $data[2];
-            $arr_data[$no][$item4] = $data[3];
-            $arr_data[$no][$item5] = $data[4];
-            $arr_data[$no][$item6] = $data[5];
-            $no++;
-        } else {
-           $item1 = "ISBM";
-           $item2 = "press";
-           $item3 = "name";
-           $item4 = "author";
-           $item5 = "prize";
-           $item6 = "day";
-       }
+        $arr_data[$no]["ISBM"]   = $data[0];
+        $arr_data[$no]["press"]  = $data[1];
+        $arr_data[$no]["name"]   = $data[2];
+        $arr_data[$no]["author"] = $data[3];
+        $arr_data[$no]["prize"]  = $data[4];
+        $arr_data[$no]["day"]    = $data[5];
+        $no++;
     }
     return $arr_data;
 }
