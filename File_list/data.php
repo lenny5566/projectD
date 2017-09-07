@@ -1,5 +1,7 @@
 <?php
 
+check_file("book.txt");
+
 if (isset ($_POST['index']) ) {
     $file   = fopen("book.txt", "r");
     print_table($file);
@@ -11,14 +13,29 @@ if (isset ($_POST['select_1']) || isset ($_POST['select_2']) ) {
     if ($choose == "prize" || $choose == "day") {
         $arr_newdata = sort_data($choose, $sort, 'num');
         write_file($arr_newdata);
-        $file   = fopen("sort.txt", "r");
+        $file   = fopen("book.txt", "r");
         print_table($file);
     } else {
         $arr_newdata = sort_data($choose, $sort);
         write_file($arr_newdata);
-        $file   = fopen("sort.txt", "r");
+        $file   = fopen("book.txt", "r");
         print_table($file);
     }
+}
+
+function check_file($file)
+{
+    $data  = file($file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    $tmp   = fopen('tmp.txt', 'w');
+    foreach ($data as $key => $value) {
+        if ($key == 0) {
+            fputs($tmp, $value);
+        } else {
+            fputs($tmp, PHP_EOL.$value);
+        }
+    }
+    fclose($tmp);
+    rename("tmp.txt","book.txt");
 }
 
 function print_table($file)
@@ -64,12 +81,12 @@ function sort_data($sorttype = 'ISBM', $l = 0, $s = 'str')
     $data_array = explode("\n", $file_data); 
     foreach ($data_array as $key => $value) {
         $data = explode(",", $value);
-        @$arr_data[$no]["ISBM"]   = $data[0];
-        @$arr_data[$no]["press"]  = $data[1];
-        @$arr_data[$no]["name"]   = $data[2];
-        @$arr_data[$no]["author"] = $data[3];
-        @$arr_data[$no]["prize"]  = $data[4];
-        @$arr_data[$no]["day"]    = $data[5];
+        $arr_data[$no]["ISBM"]   = $data[0];
+        $arr_data[$no]["press"]  = $data[1];
+        $arr_data[$no]["name"]   = $data[2];
+        $arr_data[$no]["author"] = $data[3];
+        $arr_data[$no]["prize"]  = $data[4];
+        $arr_data[$no]["day"]    = $data[5];
         $no++;
     }
 
@@ -77,7 +94,7 @@ function sort_data($sorttype = 'ISBM', $l = 0, $s = 'str')
     $tmp_data = array();
     foreach($arr_data as $key => $value)
     {
-        $get_d = @$value[$sorttype];
+        $get_d = $value[$sorttype];
         $tmp_data[$key] = $s=='str' ? $get_d.'' : $get_d+0;
     }
     
@@ -100,4 +117,5 @@ function write_file($data)
         fputcsv($tmp, $value);
     }
     fclose($tmp);
+    rename("sort.txt","book.txt");
 }
