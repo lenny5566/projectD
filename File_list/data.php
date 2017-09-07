@@ -10,7 +10,7 @@ if (isset ($_POST['index']) ) {
 if (isset ($_POST['select_1']) || isset ($_POST['select_2']) ) {
     $choose = $_POST['select_1'];
     $sort   = $_POST['select_2'];
-    if ($choose == "prize" || $choose == "day") {
+    if ($choose == "prize") {
         $arr_newdata = sort_data($choose, $sort, 'num');
         write_file($arr_newdata);
         $file   = fopen("book.txt", "r");
