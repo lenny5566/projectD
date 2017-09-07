@@ -1,8 +1,5 @@
 <?php
 
-$arr_data = array();
-$arr_data = read_data("book.txt");
-
 if (isset ($_POST['index']) ) {
     $file   = fopen("book.txt", "r");
     print_table($file);
@@ -11,40 +8,17 @@ if (isset ($_POST['index']) ) {
 if (isset ($_POST['select_1']) || isset ($_POST['select_2']) ) {
     $choose = $_POST['select_1'];
     $sort   = $_POST['select_2'];
-	
     if ($choose == "prize" || $choose == "day") {
         $arr_newdata = sort_data($choose, $sort, 'num');
-        foreach ($arr_newdata as $key => $value) {
-            
-        }
-	    print_r($arr_newdata);
+        write_file($arr_newdata);
+        $file   = fopen("sort.txt", "r");
+        print_table($file);
     } else {
         $arr_newdata = sort_data($choose, $sort);
-        print_r(array_merge($arr_newdata));
-        // foreach ($arr_newdata as $key => $value) {
-            
-        // }
-	   // print_r($arr_newdata);
+        write_file($arr_newdata);
+        $file   = fopen("sort.txt", "r");
+        print_table($file);
     }
-}
-
-function read_data($filestr)
-{
-    global $arr_data; 
-    $no = 1;
-    $tmp_data = file_get_contents($filestr); 
-    $tmp_array = explode("\n", $tmp_data); 
-    foreach ($tmp_array as $key => $value) {
-        $data = explode(",", $value);
-        $arr_data[$no]["ISBM"]   = $data[0];
-        $arr_data[$no]["press"]  = $data[1];
-        $arr_data[$no]["name"]   = $data[2];
-        $arr_data[$no]["author"] = $data[3];
-        $arr_data[$no]["prize"]  = $data[4];
-        $arr_data[$no]["day"]    = $data[5];
-        $no++;
-    }
-    return $arr_data;
 }
 
 function print_table($file)
@@ -62,19 +36,20 @@ function print_table($file)
         </tr>";
     while (!feof ($file) ) {
         $row = fgetcsv($file);  //fgetcsv 從檔案指標取得行並且剖析CSV欄位 語法：fgetcsv(檔案指標,讀取長度,分隔符號)
-        echo "<tr>";
-        echo "<td>" . $row[0] . "</td>";
-        echo "<td>" . $row[1] . "</td>";
-        echo "<td>" . $row[2] . "</td>";
-        echo "<td>" . $row[3] . "</td>";
-        echo "<td>" . $row[4] . "</td>";
-        echo "<td>" . $row[5] . "</td>";
-        echo "<td> <button> <a href='edit.php?id=".$count."'> EDIT </a> </button>";
-        echo "&nbsp";
-        echo "<button> <a href='delete.php?id=".$count."'> DEL </a> </button> </td>";
-        echo "</tr>";
-        
-        $count++;
+        if ($row != "") {
+            echo "<tr>";
+            echo "<td>" . $row[0] . "</td>";
+            echo "<td>" . $row[1] . "</td>";
+            echo "<td>" . $row[2] . "</td>";
+            echo "<td>" . $row[3] . "</td>";
+            echo "<td>" . $row[4] . "</td>";
+            echo "<td>" . $row[5] . "</td>";
+            echo "<td> <button> <a href='edit.php?id=".$count."'> EDIT </a> </button>";
+            echo "&nbsp";
+            echo "<button> <a href='delete.php?id=".$count."'> DEL </a> </button> </td>";
+            echo "</tr>";
+            $count++;
+        }
     }
     echo "</table>";
     fclose($file);
@@ -82,12 +57,27 @@ function print_table($file)
 
 function sort_data($sorttype = 'ISBM', $l = 0, $s = 'str')
 {
-    global $arr_data;
+    $arr_data = array(); 
+    $file = ("book.txt");
+    $no = 1;
+    $file_data = file_get_contents($file); 
+    $data_array = explode("\n", $file_data); 
+    foreach ($data_array as $key => $value) {
+        $data = explode(",", $value);
+        @$arr_data[$no]["ISBM"]   = $data[0];
+        @$arr_data[$no]["press"]  = $data[1];
+        @$arr_data[$no]["name"]   = $data[2];
+        @$arr_data[$no]["author"] = $data[3];
+        @$arr_data[$no]["prize"]  = $data[4];
+        @$arr_data[$no]["day"]    = $data[5];
+        $no++;
+    }
+
     $tmp_arr = array();
     $tmp_data = array();
     foreach($arr_data as $key => $value)
     {
-        $get_d = $value[$sorttype];
+        $get_d = @$value[$sorttype];
         $tmp_data[$key] = $s=='str' ? $get_d.'' : $get_d+0;
     }
     
@@ -101,4 +91,13 @@ function sort_data($sorttype = 'ISBM', $l = 0, $s = 'str')
         $tmp_arr[$key] = $arr_data[$key];
     }
     return $tmp_arr;
+}
+
+function write_file($data)
+{
+    $tmp   = fopen('sort.txt', 'w');
+    foreach ($data as $value) {
+        fputcsv($tmp, $value);
+    }
+    fclose($tmp);
 }
