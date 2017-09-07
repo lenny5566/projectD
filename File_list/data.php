@@ -1,46 +1,58 @@
 <?php
 
+$arr_data = array();
+$arr_data = read_data("book.txt");
+
 if (isset ($_POST['index']) ) {
     $file   = fopen("book.txt", "r");
     print_table($file);
 }
 
-if (isset ($_POST['select_1']) ) {
+if (isset ($_POST['select_1']) || isset ($_POST['select_2']) ) {
     $choose = $_POST['select_1'];
-    $file   = fopen("book.txt", "r");
-    $row_Record = array();
-    
-    while (!feof ($file) ) {
-        $row_Record = fgetcsv($file);
-    }
-    if ($choose == "press") {
-        echo "1";
-    } elseif ($choose == "name") {
-        echo "2";
-    } elseif ($choose == "author") {
-        echo "3";
-    } elseif ($choose == "prize") {
-        echo "4";
-    } elseif ($choose == "day") {
-        echo "5";
+    $sort   = $_POST['select_2'];
+	
+    if ($choose == "prize" || $choose == "day") {
+        $arr_newdata = sort_data($choose, $sort, 'num');
+        foreach ($arr_newdata as $key => $value) {
+            
+        }
+	    print_r($arr_newdata);
+    } else {
+        $arr_newdata = sort_data($choose, $sort);
+        foreach ($arr_newdata as $key => $value) {
+            
+        }
+	    print_r($arr_newdata);
     }
 }
 
-if (isset ($_POST['select_2']) ) {
-    $sort   = $_POST['select_2'];
-    $file   = fopen("book.txt", "r");
-    $row_Record = array();
-    
-    while (!feof ($file) ) {
-        $row_Record = fgetcsv($file);
-    }
-        if ($sort == "1") {
-            echo "go";
-            // print_table($result);
+function read_data($filestr)
+{
+    global $arr_data; 
+    $no = 1;
+    $tmp_data = file_get_contents($filestr); 
+    $tmp_array = explode("\n", $tmp_data); 
+    foreach ($tmp_array as $key => $value) {
+        $data = explode(",", $value);
+        if ($key > 0) {
+            $arr_data[$no][$item1] = $data[0];
+            $arr_data[$no][$item2] = $data[1];
+            $arr_data[$no][$item3] = $data[2];
+            $arr_data[$no][$item4] = $data[3];
+            $arr_data[$no][$item5] = $data[4];
+            $arr_data[$no][$item6] = $data[5];
+            $no++;
         } else {
-            echo "go000";
-            // print_table($result);
-        }
+           $item1 = "ISBM";
+           $item2 = "press";
+           $item3 = "name";
+           $item4 = "author";
+           $item5 = "prize";
+           $item6 = "day";
+       }
+    }
+    return $arr_data;
 }
 
 function print_table($file)
@@ -74,4 +86,27 @@ function print_table($file)
     }
     echo "</table>";
     fclose($file);
+}
+
+function sort_data($sorttype = 'ISBM', $l = 0, $s = 'str')
+{
+    global $arr_data;
+    $tmp_arr = array();
+    $tmp_data = array();
+    foreach($arr_data as $key => $value)
+    {
+        $get_d = $value[$sorttype];
+        $tmp_data[$key] = $s=='str' ? $get_d.'' : $get_d+0;
+    }
+    
+    if ($l) {
+        arsort($tmp_data);
+    } else {
+        asort($tmp_data);
+    }
+
+    foreach ($tmp_data as $key => $d) {
+        $tmp_arr[$key] = $arr_data[$key];
+    }
+    return $tmp_arr;
 }

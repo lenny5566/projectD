@@ -29,7 +29,8 @@
                 dataType: 'html',
                 type: 'post',
                 data: {
-                	select_1: $("#select_1").find(":selected").val()
+                	select_1: $("#select_1").find(":selected").val(),
+                	select_2: $("#select_2").find(":selected").val()
                 },
                 success: function(response)
                 {
@@ -47,6 +48,7 @@
                 dataType: 'html',
                 type: 'post',
                 data: {
+                    select_1: $("#select_1").find(":selected").val(),
                 	select_2: $("#select_2").find(":selected").val()
                 },
                 success: function(response)
@@ -74,7 +76,8 @@
     <div id="choose">
         排序
         <select id="select_1">
-            <option value="press" selected>出版社</option>
+            <option value="" selected></option>
+            <option value="press">出版社</option>
             <option value="name">書名</option>
             <option value="author">作者</option>
             <option value="prize">定價</option>
@@ -82,8 +85,8 @@
         </select>
         方向
         <select id="select_2">
-            <option value="1" selected>ASC</option>
-            <option value="2">DESC</option>
+            <option value="0" selected>ASC</option>
+            <option value="1">DESC</option>
         </select>
     </div>
     <br><br>
