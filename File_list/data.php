@@ -3,8 +3,8 @@
 check_file("book.txt");
 
 if (isset ($_POST['index']) ) {
-    $file   = fopen("book.txt", "r");
-    print_table($file);
+	$data  = file("book.txt", FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    print_table($data);
 }
 
 if (isset ($_POST['select_1']) || isset ($_POST['select_2']) ) {
@@ -12,14 +12,10 @@ if (isset ($_POST['select_1']) || isset ($_POST['select_2']) ) {
     $sort   = $_POST['select_2'];
     if ($choose == "prize" || $choose == "day") {
         $arr_newdata = sort_data($choose, $sort, 'num');
-        write_file($arr_newdata);
-        $file   = fopen("book.txt", "r");
-        print_table($file);
+		data_change($arr_newdata);
     } else {
         $arr_newdata = sort_data($choose, $sort);
-        write_file($arr_newdata);
-        $file   = fopen("book.txt", "r");
-        print_table($file);
+		data_change($arr_newdata);
     }
 }
 
@@ -50,9 +46,8 @@ function check_file($file)
     rename("tmp.txt",$file);
 }
 
-function print_table($file)
+function print_table($data)
 {
-    $count = 1;
     echo "<table>
         <tr>
             <th>ISBN</th>
@@ -63,23 +58,22 @@ function print_table($file)
             <th>發行日</th>
             <th>編輯/刪除</th>
         </tr>";
-    while (!feof ($file) ) {
-        $row = fgetcsv($file);  //fgetcsv 從檔案指標取得行並且剖析CSV欄位 語法：fgetcsv(檔案指標,讀取長度,分隔符號)
-            echo "<tr>";
-            echo "<td>" . $row[0] . "</td>";
-            echo "<td>" . $row[1] . "</td>";
-            echo "<td>" . $row[2] . "</td>";
-            echo "<td>" . $row[3] . "</td>";
-            echo "<td>" . $row[4] . "</td>";
-            echo "<td>" . $row[5] . "</td>";
-            echo "<td> <button> <a href='edit.php?id=".$count."'> EDIT </a> </button>";
-            echo "&nbsp";
-            echo "<button> <a href='delete.php?id=".$count."'> DEL </a> </button> </td>";
-            echo "</tr>";
-            $count++;
+    foreach ($data as $key => $value) {
+		$data_array = explode(",", $value);
+		$count = $key+1;
+		echo "<tr>";
+		echo "<td>" . $data_array[0] . "</td>";
+		echo "<td>" . $data_array[1] . "</td>";
+		echo "<td>" . $data_array[2] . "</td>";
+		echo "<td>" . $data_array[3] . "</td>";
+		echo "<td>" . $data_array[4] . "</td>";
+		echo "<td>" . $data_array[5] . "</td>";
+		echo "<td> <button> <a href='edit.php?id=".$count."'> EDIT </a> </button>";
+		echo "&nbsp";
+		echo "<button> <a href='delete.php?id=".$count."'> DEL </a> </button> </td>";
+		echo "</tr>";
     }
     echo "</table>";
-    fclose($file);
 }
 
 function sort_data($sorttype = 'ISBM', $l = 0, $s = 'str')
@@ -99,34 +93,34 @@ function sort_data($sorttype = 'ISBM', $l = 0, $s = 'str')
         $arr_data[$no]["day"]    = $data[5];
         $no++;
     }
-
-    $tmp_arr = array();
-    $tmp_data = array();
-    foreach($arr_data as $key => $value)
-    {
-		$get_d = $value[$sorttype];
-        $tmp_data[$key] = $s=='str' ? $get_d.'' : $get_d+0;
-    }
     
-    if ($l) {
-        arsort($tmp_data);
-    } else {
-        asort($tmp_data);
-    }
-
-    foreach ($tmp_data as $key => $d) {
-        $tmp_arr[$key] = $arr_data[$key];
-    }
-    return $tmp_arr;
+	if ($l == 0) { //asc
+		usort($arr_data, function ($a, $b) use ($sorttype) {
+					return strnatcmp($a[$sorttype], $b[$sorttype]);
+				}
+		);
+	} else { //desc
+		usort($arr_data, function ($a, $b) use ($sorttype) {
+					return strnatcmp($b[$sorttype], $a[$sorttype]);
+				}
+		);
+	}
+    return $arr_data;
 }
 
-function write_file($data)
+function data_change($data) 
 {
-    $tmp   = fopen('sort.txt', 'w');
-    foreach ($data as $value) {
-        fputcsv($tmp, $value);
-    }
-    fclose($tmp);
-    check_file("sort.txt");
-    rename("sort.txt","book.txt");
+	$arr    = array();
+	$no		= 0;
+	foreach ($data as $key => $value) {
+		foreach ($value as $i => $j) {
+			if ($i == 'ISBM') {
+				$arr[$no] = $j;
+			} else {
+				$arr[$no] .= ",".$j;
+			}
+		}
+		$no++;
+	}
+	print_table($arr);
 }
