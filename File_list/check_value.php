@@ -30,6 +30,11 @@ function checkForm()
 		document.formJoin.prize.focus();
 		return false;
 	}
+	
+	if (!check_prize(document.formJoin.prize) ) {
+		document.formJoin.prize.focus();
+		return false;
+	}
 
 	if (document.formJoin.day.value == "") {
 		alert("Please enter Day!");
@@ -42,6 +47,16 @@ function checkForm()
 		return false;
 	}
 	return confirm('Sure send data?');
+}
+
+function check_prize(prize)
+{
+	var filter  = /^[0-9]*[1-9][0-9]*$/;
+	if (filter.test(prize.value) ) {
+		return true;
+	}
+	alert("Prize type isn't correct!");
+	return false;
 }
 
 function check_day(day)

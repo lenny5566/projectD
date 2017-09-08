@@ -10,7 +10,7 @@ if (isset ($_POST['index']) ) {
 if (isset ($_POST['select_1']) || isset ($_POST['select_2']) ) {
     $choose = $_POST['select_1'];
     $sort   = $_POST['select_2'];
-    if ($choose == "prize") {
+    if ($choose == "prize" || $choose == "day") {
         $arr_newdata = sort_data($choose, $sort, 'num');
         write_file($arr_newdata);
         $file   = fopen("book.txt", "r");
@@ -35,7 +35,19 @@ function check_file($file)
         }
     }
     fclose($tmp);
-    rename("tmp.txt","book.txt");
+	
+	$tmp1   = fopen('tmp.txt', 'r');
+	$tmp2   = fopen('check.txt', 'w');
+    while (!feof ($tmp1) ) {
+		$char = fgetc($tmp1);
+        if ($char != '"' && $char != ' ') {
+            fputs($tmp2, $char);
+        }
+    }
+	fclose($tmp1);
+	fclose($tmp2);
+	rename("check.txt", "tmp.txt");
+    rename("tmp.txt",$file);
 }
 
 function print_table($file)
@@ -53,7 +65,6 @@ function print_table($file)
         </tr>";
     while (!feof ($file) ) {
         $row = fgetcsv($file);  //fgetcsv 從檔案指標取得行並且剖析CSV欄位 語法：fgetcsv(檔案指標,讀取長度,分隔符號)
-        if ($row != "") {
             echo "<tr>";
             echo "<td>" . $row[0] . "</td>";
             echo "<td>" . $row[1] . "</td>";
@@ -66,7 +77,6 @@ function print_table($file)
             echo "<button> <a href='delete.php?id=".$count."'> DEL </a> </button> </td>";
             echo "</tr>";
             $count++;
-        }
     }
     echo "</table>";
     fclose($file);
@@ -94,7 +104,7 @@ function sort_data($sorttype = 'ISBM', $l = 0, $s = 'str')
     $tmp_data = array();
     foreach($arr_data as $key => $value)
     {
-        $get_d = $value[$sorttype];
+		$get_d = $value[$sorttype];
         $tmp_data[$key] = $s=='str' ? $get_d.'' : $get_d+0;
     }
     
@@ -117,5 +127,6 @@ function write_file($data)
         fputcsv($tmp, $value);
     }
     fclose($tmp);
+    check_file("sort.txt");
     rename("sort.txt","book.txt");
 }
