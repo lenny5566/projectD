@@ -4,19 +4,14 @@ check_file("book.txt");
 
 if (isset ($_POST['index']) ) {
 	$data  = file("book.txt", FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-    print_table($data);
+	print_table($data);
 }
 
 if (isset ($_POST['select_1']) || isset ($_POST['select_2']) ) {
     $choose = $_POST['select_1'];
     $sort   = $_POST['select_2'];
-    if ($choose == "prize" || $choose == "day") {
-        $arr_newdata = sort_data($choose, $sort, 'num');
-		data_change($arr_newdata);
-    } else {
-        $arr_newdata = sort_data($choose, $sort);
-		data_change($arr_newdata);
-    }
+    $arr_newdata = sort_data($choose, $sort);
+	data_change($arr_newdata);
 }
 
 function check_file($file)
@@ -48,7 +43,8 @@ function check_file($file)
 
 function print_table($data)
 {
-    echo "<table>
+	$tmp_file = fopen("array.txt", "w");
+	echo "<table>
         <tr>
             <th>ISBN</th>
             <th>出版社</th>
@@ -59,6 +55,11 @@ function print_table($data)
             <th>編輯/刪除</th>
         </tr>";
     foreach ($data as $key => $value) {
+		if ($key == 0) {
+			fputs($tmp_file, $value);
+		} else {
+			fputs($tmp_file, PHP_EOL.$value);
+		}
 		$data_array = explode(",", $value);
 		$count = $key+1;
 		echo "<tr>";
@@ -74,9 +75,10 @@ function print_table($data)
 		echo "</tr>";
     }
     echo "</table>";
+	fclose($tmp_file);
 }
 
-function sort_data($sorttype = 'ISBM', $l = 0, $s = 'str')
+function sort_data($sorttype = 'ISBM', $l = 0)
 {
     $arr_data = array(); 
     $file = ("book.txt");
@@ -111,16 +113,15 @@ function sort_data($sorttype = 'ISBM', $l = 0, $s = 'str')
 function data_change($data) 
 {
 	$arr    = array();
-	$no		= 0;
 	foreach ($data as $key => $value) {
 		foreach ($value as $i => $j) {
 			if ($i == 'ISBM') {
-				$arr[$no] = $j;
+				$arr[$key] = $j;
 			} else {
-				$arr[$no] .= ",".$j;
+				$arr[$key] .= ",".$j;
 			}
 		}
-		$no++;
 	}
+	
 	print_table($arr);
 }

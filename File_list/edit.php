@@ -3,7 +3,7 @@
     if (isset ($_GET["id"] ) ) {
         $count = $_GET["id"];
         $row_Record = array();
-        $file     = fopen("book.txt", "r");
+        $file     = fopen("array.txt", "r");
         $line_no  = 1;
         while (!feof ($file) ) {
             $line = fgetcsv($file);
@@ -38,6 +38,7 @@
         fclose($file);
         fclose($tmp_file);
         rename("tmp.txt","book.txt");
+		unlink("array.txt");
         header("Location: list.php");
     }
 ?>
