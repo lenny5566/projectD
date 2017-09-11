@@ -85,4 +85,31 @@ function check_day(day)
       }
         return $value;
     }
+	
+	function check_file($file)
+	{
+		$data  = file($file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+		$tmp   = fopen('tmp.txt', 'w');
+		foreach ($data as $key => $value) {
+			if ($key == 0) {
+				fputs($tmp, $value);
+			} else {
+				fputs($tmp, PHP_EOL.$value);
+			}
+		}
+		fclose($tmp);
+		
+		$tmp1   = fopen('tmp.txt', 'r');
+		$tmp2   = fopen('check.txt', 'w');
+		while (!feof ($tmp1) ) {
+			$char = fgetc($tmp1);
+			if ($char != '"' && $char != ' ') {
+				fputs($tmp2, $char);
+			}
+		}
+		fclose($tmp1);
+		fclose($tmp2);
+		rename("check.txt", "tmp.txt");
+		rename("tmp.txt",$file);
+	}
 ?>

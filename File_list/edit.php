@@ -1,10 +1,13 @@
 <?php
     require("check_value.php");
+	
+	$count = "";
     if (isset ($_GET["id"] ) ) {
         $count = $_GET["id"];
+		echo $count;
         $row_Record = array();
-        $file     = fopen("array.txt", "r");
-        $line_no  = 1;
+        $file     = fopen("book.txt", "r");
+        $line_no  = 0;
         while (!feof ($file) ) {
             $line = fgetcsv($file);
             if ($line_no == $count) {
@@ -16,6 +19,7 @@
     }
 
     if (isset ($_POST["action"] ) && ($_POST["action"] == "edit" )) {
+	echo $count;
         $num      = get_Value($_POST["num"], 'string');
 	    $press    = get_Value($_POST["press"], 'string');
         $name     = get_Value($_POST["name"], 'string');
@@ -38,7 +42,6 @@
         fclose($file);
         fclose($tmp_file);
         rename("tmp.txt","book.txt");
-		unlink("array.txt");
         header("Location: list.php");
     }
 ?>

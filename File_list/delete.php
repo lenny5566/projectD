@@ -4,7 +4,7 @@
         if (isset ($_GET["id"] ) ) {
             $count = $_GET["id"];
         }
-        $file     = fopen("array.txt", "r");
+        $file     = fopen("book.txt", "r");
         $tmp_file = fopen("tmp.txt",'w');
         $line_no  = 1;
         while (!feof ($file) ) {
@@ -16,7 +16,6 @@
         }
         fclose($file);
         fclose($tmp_file);
-		unlink("array.txt");
         rename("tmp.txt","book.txt");
         header("Location: list.php");
     }
