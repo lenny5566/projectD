@@ -1,25 +1,22 @@
 <?php
     require("check_value.php");
-	
+
 	$count = "";
     if (isset ($_GET["id"] ) ) {
         $count = $_GET["id"];
-		echo $count;
         $row_Record = array();
         $file     = fopen("book.txt", "r");
-        $line_no  = 0;
-        while (!feof ($file) ) {
-            $line = fgetcsv($file);
-            if ($line_no == $count) {
-                $row_Record = $line;
-            }
-            $line_no++;
-        }
-        fclose($file);
+		$line_no  = 0;
+		while (!feof ($file) ) {
+			$line = fgetcsv($file);
+			if ($line_no == $count) {
+				$row_Record = $line;
+			}
+			$line_no++;
+		}
     }
 
     if (isset ($_POST["action"] ) && ($_POST["action"] == "edit" )) {
-	echo $count;
         $num      = get_Value($_POST["num"], 'string');
 	    $press    = get_Value($_POST["press"], 'string');
         $name     = get_Value($_POST["name"], 'string');
@@ -27,9 +24,9 @@
         $prize    = get_Value($_POST["prize"], 'int');
         $day      = get_Value($_POST["day"], 'int');
         $row      = $num.",".$press.",".$name.",".$author.",".$prize.",".$day."\n";
-        $file     = fopen("book.txt", "r");
+		$file     = fopen("book.txt", "r");
         $tmp_file = fopen("tmp.txt", "w");
-        $line_no  = 1;
+        $line_no  = 0;
         while (!feof ($file) ) {
             $line = fgets($file);
             if ($line_no == $count) {
@@ -42,7 +39,8 @@
         fclose($file);
         fclose($tmp_file);
         rename("tmp.txt","book.txt");
-        header("Location: list.php");
+		check_file("book.txt");
+		header("Location: list.php");
     }
 ?>
 <!DOCTYPE html>

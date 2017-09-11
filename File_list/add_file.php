@@ -1,4 +1,5 @@
 <?php
+	require("check_value.php");
     if ($_FILES["file"]["error"] > 0) {
         echo "Error! ";
     } else {
@@ -11,6 +12,7 @@
             }
             fclose($input);
             fclose($file);
+			check_file("book.txt");
             header("Location: list.php");
         }
     }

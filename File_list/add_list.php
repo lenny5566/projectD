@@ -1,6 +1,6 @@
 <?php
     require("check_value.php");
-
+	
     if (isset ($_POST["action"] ) && ($_POST["action"] == "add" )) {
         $num      = get_Value($_POST["num"], 'string');
 	    $press    = get_Value($_POST["press"], 'string');
@@ -12,6 +12,7 @@
         $file     = fopen("book.txt", "a");
         fputs($file, $row);
         fclose($file);
+		check_file("book.txt");
         header("Location: list.php");
     }
 ?>

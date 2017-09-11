@@ -1,12 +1,14 @@
 <?php
 
+	require("check_value.php");
+	
     if (isset ($_POST["action"] ) && ($_POST["action"] == "delete" )) {
         if (isset ($_GET["id"] ) ) {
             $count = $_GET["id"];
         }
         $file     = fopen("book.txt", "r");
         $tmp_file = fopen("tmp.txt",'w');
-        $line_no  = 1;
+        $line_no  = 0;
         while (!feof ($file) ) {
             $line = fgets($file);
             if ($line_no != $count) {
@@ -17,6 +19,7 @@
         fclose($file);
         fclose($tmp_file);
         rename("tmp.txt","book.txt");
+		check_file("book.txt");
         header("Location: list.php");
     }
 ?>

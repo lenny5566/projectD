@@ -1,22 +1,15 @@
 <?php
 
 if (isset ($_POST['index']) ) {
-	$data  = file("book.txt", FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-	foreach ($data as $key => $value) {
-		$data[$key] .= ",".$key;
-	}
-	print_table($data);
+	$arr_newdata = sort_data("ISBM", 0);
+	print_table($arr_newdata);
 }
 
 if (isset ($_POST['select_1']) || isset ($_POST['select_2']) ) {
     $choose = $_POST['select_1'];
     $sort   = $_POST['select_2'];
-	$arr    = array();
     $arr_newdata = sort_data($choose, $sort);
-	foreach ($arr_newdata as $key => $value) {
-		$arr[$key] = implode(",", $value);
-	}
-	print_table($arr);	
+	print_table($arr_newdata);	
 }
 
 function print_table($data)
@@ -48,14 +41,13 @@ function print_table($data)
     echo "</table>";
 }
 
-function sort_data($sorttype = 'ISBM', $l = 0)
+function sort_data($sorttype, $l)
 {
-    $arr_data = array();
-	$file = ("book.txt");
-    $no = 0;
-    $file_data = file_get_contents($file); 
-    $data_array = explode("\n", $file_data); 
-    foreach ($data_array as $key => $value) {
+	$no 	     = 0;
+    $arr_data    = array();
+	$arr_newdata = array();
+    $data_file   = file("book.txt", FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    foreach ($data_file as $key => $value) {
         $data = explode(",", $value);
         $arr_data[$no]["ISBM"]   = $data[0];
         $arr_data[$no]["press"]  = $data[1];
@@ -78,5 +70,9 @@ function sort_data($sorttype = 'ISBM', $l = 0)
 				}
 		);
 	}
-    return $arr_data;
+	
+	foreach ($arr_data as $key => $value) {
+		$arr_newdata[$key] = implode(",", $value);
+	}
+    return $arr_newdata;
 }
