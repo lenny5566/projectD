@@ -1,5 +1,6 @@
 <?php
 	require("check_value.php");
+
     if ($_FILES["file"]["error"] > 0) {
         echo "Error! ";
     } else {

@@ -14,6 +14,7 @@ if (isset ($_POST['select_1']) || isset ($_POST['select_2']) ) {
 
 function print_table($data)
 {
+	$file_check = filemtime("book.txt");
 	echo "<table>
         <tr>
             <th>ISBN</th>
@@ -33,9 +34,9 @@ function print_table($data)
 		echo "<td>" . $data_array[3] . "</td>";
 		echo "<td>" . $data_array[4] . "</td>";
 		echo "<td>" . $data_array[5] . "</td>";
-		echo "<td> <button> <a href='edit.php?id=".$data_array[6]."'> EDIT </a> </button>";
+		echo "<td> <button> <a href='edit.php?id=".$data_array[6]."&check=".$file_check."'> EDIT </a> </button>";
 		echo "&nbsp";
-		echo "<button> <a href='delete.php?id=".$data_array[6]."'> DEL </a> </button> </td>";
+		echo "<button> <a href='delete.php?id=".$data_array[6]."&check=".$file_check."'> DEL </a> </button> </td>";
 		echo "</tr>";
     }
     echo "</table>";

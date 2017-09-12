@@ -1,6 +1,13 @@
 <?php
     require("check_value.php");
-
+	
+	if (isset ($_GET["check"] )) {
+		$file_check = filemtime("book.txt");
+		if ($file_check > $_GET["check"]) {
+			header("Location: message.php");
+		}
+	}
+	
 	$count = "";
     if (isset ($_GET["id"] ) ) {
         $count = $_GET["id"];
