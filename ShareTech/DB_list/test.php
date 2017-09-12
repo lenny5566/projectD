@@ -8,3 +8,4 @@ foreach ($query->result() as $row) {
     echo $row->id.'<br/>';
 	echo $row->press.'<br/>';
 }
+?>
