@@ -81,7 +81,8 @@
     <div id="choose">
         排序
         <select id="select_1">
-            <option value="press" selected>出版社</option>
+			<option value="ISBN" selected>ISBN</option>
+            <option value="press">出版社</option>
             <option value="name">書名</option>
             <option value="author">作者</option>
             <option value="prize">定價</option>
