@@ -72,7 +72,7 @@
     <div style="text-align:center;">
 		資料匯出
 		<button>
-            <a href="book.txt" download>匯出</a>
+            <a href="data.php?load=1">匯出</a>
         </button>
 	</div>
     <div id="choose">

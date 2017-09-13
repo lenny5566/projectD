@@ -14,6 +14,15 @@ if (isset ($_POST['select_1']) || isset ($_POST['select_2']) ) {
 	print_table($arr_newdata);	
 }
 
+if (isset ($_GET['load']) ) {
+	header("Content-type: text/x-csv");
+	header("Content-Disposition:filename=exportFileName.csv");
+	$data_file = file("tmp.txt", FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+	foreach ($data_file as $key => $value) {
+		echo iconv("UTF-8", "big5", $value."\n");
+	}
+}
+
 function print_table($data)
 {
 	echo "<table>
@@ -48,6 +57,7 @@ function sort_data($sorttype, $l)
 	$no 	     = 0;
     $arr_data    = array();
 	$arr_newdata = array();
+	$file   = fopen("tmp.txt", "w");
 	$db 	= new DataBase;
 	$query  = $db->query("SELECT * FROM `book`");
 	foreach ($query->result() as $row) {
@@ -72,10 +82,12 @@ function sort_data($sorttype, $l)
 				}
 		);
 	}
-	
 	foreach ($arr_data as $key => $value) {
-		$arr_newdata[$key] = implode(",", $value);
+		$line = implode(",", $value);
+		fwrite($file, $line.PHP_EOL);
+		$arr_newdata[$key] = $line;
 	}
+	fclose($file);
     return $arr_newdata;
 }
 
