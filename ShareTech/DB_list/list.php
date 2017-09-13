@@ -13,11 +13,10 @@
                 type: 'post',
                 data: {
                 	index : 1
-                 },
+                },
                 success: function(response)
                 {
                     $('#msg').html(response);
-                    $('#msg').fadeIn();
                 }
             });
 
@@ -35,7 +34,6 @@
                 success: function(response)
                 {
                     $('#msg').html(response);
-                    $('#msg').fadeIn();
                 }
             });
         });
@@ -54,16 +52,15 @@
                 success: function(response)
                 {
                     $('#msg').html(response);
-                    $('#msg').fadeIn();
                 }
             });
         });
     });
 	
-	function disp_confirm()
+	function disp_confirm(data)
 	{
 		if (confirm("Sure delete?") ) {
-			document.write("You pressed OK!")
+			document.write(data)
 		} else {
 			document.write("You pressed Cancel!")
 		}
@@ -101,7 +98,6 @@
         <button>
             <a href="add_list.php">ADD</a>
         </button>
-        <input type="button" onclick="disp_confirm()" value="DEL" />
     </div>
 </body>
 </html>
