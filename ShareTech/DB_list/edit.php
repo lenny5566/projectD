@@ -24,14 +24,13 @@
 
     if (isset ($_POST["action"] ) && ($_POST["action"] == "edit" )) {
 		$id     = $_POST["id"];
-        $num    = get_Value($_POST["num"], 'string');
 	    $press  = get_Value($_POST["press"], 'string');
         $name   = get_Value($_POST["name"], 'string');
         $author = get_Value($_POST["author"], 'string');
         $prize  = get_Value($_POST["prize"], 'int');
         $day    = get_Value($_POST["day"], 'int');
         $db 	= new DataBase;
-		$query  = $db->query("UPDATE `book` SET ISBN='$num', press='$press', bName='$name',
+		$query  = $db->query("UPDATE `book` SET press='$press', bName='$name',
 							author='$author', prize='$prize', day='$day' WHERE id='$id'");
         header("Location: list.php");
     }
@@ -48,7 +47,7 @@
         <td class="tdrline">
             <form action="" method="POST" name="formJoin" id="formJoin" onSubmit="return checkForm();">
             <p><strong>ISBN</strong>：
-                <input name="num" type="text" class="input" id="num" value="<?php echo $row_Record["ISBN"]; ?>"> </p>
+                <input name="num" type="text" class="input" id="num" value="<?php echo $row_Record["ISBN"]; ?>" readonly="readonly"> </p>
             <p><strong>出版社</strong>：
                 <input name="press" type="text" class="input" id="press" value="<?php echo $row_Record["press"]; ?>"> </p>
             <p><strong>書名</strong>：
@@ -56,9 +55,9 @@
             <p><strong>作者</strong>：
                 <input name="author" type="text" class="input" id="author" value="<?php echo $row_Record["author"]; ?>"> </p>
             <p><strong>定價</strong>：
-                <input name="prize" type="text" class="input" id="prize" value="<?php echo $row_Record["prize"]; ?>"> </p>    
-            <p><strong>發行日</strong>：
-                <input name="day" type="text" class="input" id="day" placeholder="YYYY-MM-DD" value="<?php echo $row_Record["day"]; ?>">
+                <input name="prize" type="text" class="input" id="prize" value="<?php echo $row_Record["prize"]; ?>"> </p>
+			<label for="day"><strong>發行日</strong>：</label>
+				<input type="date" name="day" class="input" id="day" placeholder="YYYY-MM-DD" value="<?php echo $row_Record["day"]; ?>">
             <hr size="1" />
             <p align="center">
 				<input name="id" type="hidden" value="<?php echo $row_Record["id"]; ?>">

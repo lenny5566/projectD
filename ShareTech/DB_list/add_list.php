@@ -35,8 +35,8 @@
                 <input name="author" type="text" class="input" id="author"> </p>
             <p><strong>定價</strong>：
                 <input name="prize" type="text" class="input" id="prize"> </p>    
-            <p><strong>發行日</strong>：
-                <input name="day" type="text" class="input" id="day" placeholder="YYYY-MM-DD">
+            <label for="day"><strong>發行日</strong>：</label>
+				<input type="date" name="day" class="input" id="day" placeholder="YYYY-MM-DD">
             <hr size="1" />
             <p align="center">
                 <input name="action" type="hidden" id="action" value="add">

@@ -46,7 +46,7 @@ function print_table($data)
 		echo "<td>" . $data_array[5] . "</td>";
 		echo "<td> <button> <a href='edit.php?id=".$data_array[6]."'> EDIT </a> </button>";
 		echo "&nbsp";
-		echo "<input type='button' onclick='disp_confirm(".$data_array[6].")' value='DEL'></td>";
+		echo "<button> <a href='delete.php?id=".$data_array[6]."' onClick='return check_delete();'> DEL </a> </button> </td>";
 		echo "</tr>";
     }
     echo "</table>";

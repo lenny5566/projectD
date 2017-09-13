@@ -56,13 +56,14 @@
             });
         });
     });
-	
-	function disp_confirm(data)
+
+	function check_delete()
 	{
-		if (confirm("Sure delete?") ) {
-			document.write(data)
+		var r = confirm("Sure Delete?");
+		if (r == true) {
+			return true;
 		} else {
-			document.write("You pressed Cancel!")
+			return false;
 		}
 	}
 </script>

@@ -57,7 +57,7 @@ html, body {
     text-align  : center;
 }
 
-input[type="submit"], input[type="reset"], input[type="text"], input[type="button"], button, select {
+input[type="submit"], input[type="reset"], input[type="text"], input[type="date"], input[type="button"], button, select {
     padding        : 5px 15px;
     background     : #DDDDDD;
     border         : 0 none ;
