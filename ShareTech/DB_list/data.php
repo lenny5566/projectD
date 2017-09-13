@@ -70,7 +70,7 @@ function sort_data($sorttype, $l)
 		$arr_data[$no]["id"]	 = $row->id;
         $no++;
     }
-    
+
 	if ($l == 0) { //asc
 		usort($arr_data, function ($a, $b) use ($sorttype) {
 					return strnatcmp($a[$sorttype], $b[$sorttype]);
