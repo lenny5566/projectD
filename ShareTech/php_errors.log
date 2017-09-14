@@ -1,0 +1,4 @@
+[13-Sep-2017 09:44:38 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home/ubuntu/workspace/projectD/ShareTech/DB_list/data.php on line 63
+[13-Sep-2017 09:44:38 UTC] PHP Stack trace:
+[13-Sep-2017 09:44:38 UTC] PHP   1. {main}() /home/ubuntu/workspace/projectD/ShareTech/DB_list/data.php:0
+[13-Sep-2017 09:44:38 UTC] PHP   2. sort_data() /home/ubuntu/workspace/projectD/ShareTech/DB_list/data.php:6

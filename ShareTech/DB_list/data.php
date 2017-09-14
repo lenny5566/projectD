@@ -90,4 +90,3 @@ function sort_data($sorttype, $l)
 	fclose($file);
     return $arr_newdata;
 }
-

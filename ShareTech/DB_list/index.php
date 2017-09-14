@@ -59,8 +59,7 @@
 
 	function check_delete()
 	{
-		var r = confirm("Sure Delete?");
-		if (r == true) {
+		if (confirm("Sure Delete?") == true) {
 			return true;
 		} else {
 			return false;
