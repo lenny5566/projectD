@@ -15,4 +15,3 @@
     }
 
 	require("xhtml/add_list.html");
-?>

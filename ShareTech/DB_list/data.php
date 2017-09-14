@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 include("class/db.php");
 
 if (isset ($_POST['index']) ) {
@@ -15,19 +15,19 @@ if (isset ($_POST['select_1']) || isset ($_POST['select_2']) ) {
 }
 
 if (isset ($_GET['load']) ) {
+	$no = 0;
 	$load_time = date("Y-m-d");
 	header("Content-type: text/x-csv; charset=utf-8");
 	header("Content-Disposition: filename=".$load_time.".csv");
-	$data_file = file("tmp.txt", FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 	echo "\xEF\xBB\xBF";
-	foreach ($data_file as $key => $value) {
-		$data_array = explode(",", $value);
-		if ($key != 0) {
+	while ( isset($_SESSION["value"][$no]) ) {
+		if ($no == 0) {
+			echo $_SESSION["value"][$no];
+			$no ++;
+		} else {
 			echo PHP_EOL;
-		}
-		echo $data_array[0];
-		for ($i = 1; $i < 6; $i++) {
-			echo ",".$data_array[$i];
+			echo $_SESSION["value"][$no];
+			$no ++;
 		}
 	}
 }
@@ -46,6 +46,8 @@ function print_table($data)
         </tr>";
     foreach ($data as $key => $value) {
 		$data_array = explode(",", $value);
+		$_SESSION["value"][$key] = $data_array[0].",".$data_array[1].",".$data_array[2].","
+									.$data_array[3].",".$data_array[4].",".$data_array[5];
 		echo "<tr>";
 		echo "<td>" . $data_array[0] . "</td>";
 		echo "<td>" . $data_array[1] . "</td>";
@@ -66,7 +68,6 @@ function sort_data($sorttype, $l)
 	$no 	     = 0;
     $arr_data    = array();
 	$arr_newdata = array();
-	$file   = fopen("tmp.txt", "w");
 	$db 	= new DataBase;
 	$query  = $db->query("SELECT * FROM `book`");
 	foreach ($query->result() as $row) {
@@ -93,9 +94,7 @@ function sort_data($sorttype, $l)
 	}
 	foreach ($arr_data as $key => $value) {
 		$line = implode(",", $value);
-		fwrite($file, $line.PHP_EOL);
 		$arr_newdata[$key] = $line;
 	}
-	fclose($file);
     return $arr_newdata;
 }

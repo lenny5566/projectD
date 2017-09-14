@@ -36,4 +36,3 @@
     }
 	
 	require("xhtml/edit.html");
-?>
