@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<?php require("script_css.php") ?>
+<?php require("xhtml/script_css.html") ?>
 <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function load_list()

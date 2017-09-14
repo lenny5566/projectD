@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機: 127.0.0.1
--- 產生時間： 2017-09-13 11:45:20
+-- 產生時間： 2017-09-14 05:52:09
 -- 伺服器版本: 10.1.25-MariaDB
 -- PHP 版本： 5.6.31
 
@@ -44,7 +44,8 @@ CREATE TABLE `book` (
 
 INSERT INTO `book` (`id`, `ISBN`, `press`, `bName`, `author`, `prize`, `day`) VALUES
 (1, '957-442-217-1', '旗標', 'PHP函式庫參考手冊', '施威銘', 500, '2004-06-13'),
-(2, '957-442-217-6', '旗標', 'MYSQL教學', '汪曉霞', 600, '2004-06-10');
+(2, '957-442-217-6', '旗標', 'MYSQL教學', '汪曉霞', 600, '2004-06-10'),
+(3, '957-442-217-5', '旗標', 'MYSQL教學', '王大名', 500, '2017-09-01');
 
 --
 -- 已匯出資料表的索引
@@ -64,7 +65,7 @@ ALTER TABLE `book`
 -- 使用資料表 AUTO_INCREMENT `book`
 --
 ALTER TABLE `book`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;COMMIT;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

@@ -15,11 +15,20 @@ if (isset ($_POST['select_1']) || isset ($_POST['select_2']) ) {
 }
 
 if (isset ($_GET['load']) ) {
-	header("Content-type: text/x-csv");
-	header("Content-Disposition:filename=exportFileName.csv");
+	$load_time = date("Y-m-d");
+	header("Content-type: text/x-csv; charset=utf-8");
+	header("Content-Disposition: filename=".$load_time.".csv");
 	$data_file = file("tmp.txt", FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+	echo "\xEF\xBB\xBF";
 	foreach ($data_file as $key => $value) {
-		echo iconv("UTF-8", "big5", $value."\n");
+		$data_array = explode(",", $value);
+		if ($key != 0) {
+			echo PHP_EOL;
+		}
+		echo $data_array[0];
+		for ($i = 1; $i < 6; $i++) {
+			echo ",".$data_array[$i];
+		}
 	}
 }
 
