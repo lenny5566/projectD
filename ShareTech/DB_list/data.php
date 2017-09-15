@@ -30,6 +30,7 @@ if (isset ($_GET['load']) ) {
 			$no ++;
 		}
 	}
+	session_unset();
 }
 
 function print_table($data)

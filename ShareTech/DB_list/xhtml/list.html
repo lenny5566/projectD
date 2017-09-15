@@ -56,18 +56,6 @@
                 }
             });
         });
-		
-		$('#output').click(function () 
-		{
-			var string = document.getElementById('msg').innerText;
-			alert(string);
-			var blob   = new Blob(["\ufeff", string], {
-				type: "text/plain;charset=utf-8"
-			});
-			var strFile = "123.csv";
-			saveAs(blob, strFile);
-			return false;
-		});
     });
 
 	function check_delete()
@@ -84,7 +72,9 @@
     <br><br><br><br><br>
     <div style="text-align:center;">
 		資料匯出
-		<button id="output">匯出</button>
+		<button>
+		    <a href='data.php?load=1'>匯出</a>
+		</button>
 	</div>
     <div id="choose">
         排序
