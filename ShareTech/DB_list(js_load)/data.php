@@ -69,7 +69,11 @@ function sort_data($sorttype, $l)
     $arr_data    = array();
 	$arr_newdata = array();
 	$db 	= new DataBase;
-	$query  = $db->query("SELECT * FROM `book`");
+	if ($l == 0) { //asc
+		$query  = $db->query("SELECT * FROM `book` ORDER BY $sorttype ASC");
+	} else { //desc
+		$query  = $db->query("SELECT * FROM `book` ORDER BY $sorttype DESC");
+	}
 	foreach ($query->result() as $row) {
         $arr_data[$no]["ISBN"]   = $row->ISBN;
         $arr_data[$no]["press"]  = $row->press;
@@ -81,17 +85,6 @@ function sort_data($sorttype, $l)
         $no++;
     }
 
-	if ($l == 0) { //asc
-		usort($arr_data, function ($a, $b) use ($sorttype) {
-					return strnatcmp($a[$sorttype], $b[$sorttype]);
-				}
-		);
-	} else { //desc
-		usort($arr_data, function ($a, $b) use ($sorttype) {
-					return strnatcmp($b[$sorttype], $a[$sorttype]);
-				}
-		);
-	}
 	foreach ($arr_data as $key => $value) {
 		$line = implode(",", $value);
 		$arr_newdata[$key] = $line;
