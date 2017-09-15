@@ -65,8 +65,20 @@
 			string  = string.replace(/DEL/g, "");
 			
 			var str = string.split("	");
+			var str2 = "";
+			var count = 5;
+			for (var i in str) {
+				str[i]	= str[i].trim();
+				if (i == count) {
+					count = count + 6;
+					str2 += str[i] + "\n";
+				} else {
+					str2 += str[i] + ",";
+				}
+			}
+			str2  = str2.slice(0, -2);
 			
-			var blob   = new Blob(["\ufeff", str], {
+			var blob   = new Blob(["\ufeff", str2], {
 				type: "text/plain;charset=utf-8"
 			});
 			var Today   = new Date();
