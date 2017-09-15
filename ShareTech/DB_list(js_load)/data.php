@@ -1,5 +1,4 @@
 <?php
-session_start();
 include("class/db.php");
 
 if (isset ($_POST['index']) ) {
@@ -11,25 +10,7 @@ if (isset ($_POST['select_1']) || isset ($_POST['select_2']) ) {
     $choose = $_POST['select_1'];
     $sort   = $_POST['select_2'];
     $arr_newdata = sort_data($choose, $sort);
-	print_table($arr_newdata);	
-}
-
-if (isset ($_GET['load']) ) {
-	$no = 0;
-	$load_time = date("Y-m-d");
-	header("Content-type: text/x-csv; charset=utf-8");
-	header("Content-Disposition: filename=".$load_time.".csv");
-	echo "\xEF\xBB\xBF";
-	while ( isset($_SESSION["value"][$no]) ) {
-		if ($no == 0) {
-			echo $_SESSION["value"][$no];
-			$no ++;
-		} else {
-			echo PHP_EOL;
-			echo $_SESSION["value"][$no];
-			$no ++;
-		}
-	}
+	print_table($arr_newdata);
 }
 
 function print_table($data)
@@ -46,8 +27,6 @@ function print_table($data)
         </tr>";
     foreach ($data as $key => $value) {
 		$data_array = explode(",", $value);
-		$_SESSION["value"][$key] = $data_array[0].",".$data_array[1].",".$data_array[2].","
-									.$data_array[3].",".$data_array[4].",".$data_array[5];
 		echo "<tr>";
 		echo "<td>" . $data_array[0] . "</td>";
 		echo "<td>" . $data_array[1] . "</td>";
