@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+<?php require("xhtml/script_css.html") ?>
+<script type="text/javascript" src="js/FileSaver.min.js"></script>
+<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function load_list()
+    {   
+        $.ajax({
+                url: 'data.php',
+                cache: false,
+                dataType: 'html',
+                type: 'post',
+                data: {
+                	index : 1
+                },
+                success: function(response)
+                {
+                    $('#msg').html(response);
+                }
+            });
+
+        $('#select_1').change(function ()
+        {
+            $.ajax({
+                url: 'data.php',
+                cache: false,
+                dataType: 'html',
+                type: 'post',
+                data: {
+                	select_1: $("#select_1").find(":selected").val(),
+                	select_2: $("#select_2").find(":selected").val()
+                },
+                success: function(response)
+                {
+                    $('#msg').html(response);
+                }
+            });
+        });
+        
+        $('#select_2').change(function ()
+        {
+            $.ajax({
+                url: 'data.php',
+                cache: false,
+                dataType: 'html',
+                type: 'post',
+                data: {
+                    select_1: $("#select_1").find(":selected").val(),
+                	select_2: $("#select_2").find(":selected").val()
+                },
+                success: function(response)
+                {
+                    $('#msg').html(response);
+                }
+            });
+        });
+		
+		$('#output').click(function () 
+		{
+			var string = document.getElementById('msg').innerText;
+			string  = string.slice(28);
+			string  = string.replace(/EDIT/g, "");
+			string  = string.replace(/DEL/g, "");
+			
+			var str = string.split("	");
+			var str2 = "";
+			var count = 5;
+			for (var i in str) {
+				str[i]	= str[i].trim();
+				if (i == count) {
+					count = count + 6;
+					str2 += str[i] + "\n";
+				} else {
+					str2 += str[i] + ",";
+				}
+			}
+			str2  = str2.slice(0, -2);
+			
+			var blob   = new Blob(["\ufeff", str2], {
+				type: "text/plain;charset=utf-8"
+			});
+			var Today   = new Date();
+			var strFile = Today.getFullYear() + "-" + (Today.getMonth()+1) + "-"
+						+ Today.getDate() + ".csv";
+			saveAs(blob, strFile);
+			return false;
+		});
+    });
+	
+	function check_all(obj, check)
+	{
+		var checkboxs = document.getElementsByName(check);
+		for (var i = 0; i < checkboxs.length; i++) {
+			checkboxs[i].checked = obj.checked;
+		}
+	}
+	
+	function check_delete()
+	{
+		if (confirm("Sure Delete?") == true) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+</script>
+</head>
+<body onload="load_list()">
+    <br><br><br><br><br>
+    <div style="text-align:right;">
+		匯出方式
+		<select id="output_choose">
+            <option value="" selected>請選擇</option>
+            <option value="1">匯出全部</option>
+			<option value="2">匯出本頁</option>
+            <option value="3">匯出選取項目</option>
+        </select>
+		<button id="output">匯出</button>
+	</div>
+	<br>
+    <div id="choose">
+        排序
+        <select id="select_1">
+			<option value="ISBN" selected>ISBN</option>
+            <option value="press">出版社</option>
+            <option value="bName">書名</option>
+            <option value="author">作者</option>
+            <option value="prize">定價</option>
+            <option value="day">發行日</option>
+        </select>
+        方向
+        <select id="select_2">
+            <option value="0" selected>ASC</option>
+            <option value="1">DESC</option>
+        </select>
+    </div>
+    <br><br>
+    <div id="msg"></div>
+    <br>
+    <div style="text-align:center;">
+        <button>
+            <a href="add_list.php">ADD</a>
+        </button>
+    </div>
+</body>
+</html>
