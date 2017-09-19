@@ -34,7 +34,8 @@ class DataBase
 	{
         $result = mysql_query($sql_string);
         $query  = new DatabasebQuery($result);
-        return $query;
+		$result = $query->result();
+        return $result;
     }
 
 }
@@ -61,11 +62,9 @@ class DatabasebQuery
     }
 }
 
-$DB = new DataBase;
-
 class pages
 {	
-	public $page_out = false; //測試印出
+	public $page_out = false;
 	public $per = 16; //每頁顯示數量
 	public $data_nums = 0; //總筆數
 	public $page = 0; //現在頁數
@@ -76,44 +75,49 @@ class pages
 		
     }
 	
-    function Page($sql_string)
+    function Page($sorttype, $l)
 	{
-		$sql = $sql_string;
-		$result = mysql_query($sql);
-
-		$data_nums = mysql_num_rows($result); //統計總比數
+		if ($l == 0) {
+			$sort = 'ASC';
+		} else {
+			$sort = 'DESC';
+		}
+		
+		$result = mysql_query('SELECT * FROM book');
+		$data_nums = mysql_num_rows($result); //統計總筆數
 		$per = $this->per; //每頁顯示項目數量
 		$pages = ceil($data_nums/$per); //取得不小於值的下一個整數
-		
-		if (!isset($_GET["page"])){
-			$page=1;
+
+		if (!isset($_GET["page"]) ) {
+			$page = 1;
 		} else {
 			$page = intval($_GET["page"] + 0);
 		}
 		
 		$start = ($page-1)*$per; //每一頁開始的資料序號
-		$sql = $sql.' LIMIT '.$start.', '.$per;
-		$result = mysql_query($sql) or die("Error");
-		//$This
+		$sql = 'SELECT * FROM (SELECT * FROM book LIMIT '.$start.', '.$per.') t
+				ORDER BY '.$sorttype.' '.$sort;
 		$this->data_nums = $data_nums;
 		$this->page = $page;
 		$this->pages = $pages;
-		if (($this->page_out == true)) {
+		if (($this->page_out == true) ) {
 			//分頁頁碼
-			$front = $page-1;
-			$next  = $page+1;
-			echo "<br /><a href=?page=1> |< </a> ";
+			if ($page == 1) {
+				$front = $page;
+			} else {
+				$front = $page-1;
+			}
+			if ($page == $pages) {
+				$next  = $page;
+			} else {
+				$next  = $page+1;
+			}
+			echo "<a href=?page=1> |< </a> ";
 			echo "<a href=?page=".$front."> << </a> ";
-			echo "第 <a href=?page=".$page.">".$page."</a> 頁";
+			echo "第 ".$page." 頁";
 			echo "<a href=?page=".$next."> >> </a> ";
 			echo "<a href=?page=".$pages."> >| </a><br /><br />";
 		}
-		$this->data_nums = $data_nums;
-		$this->page = $page;
-		$this->pages = $pages;
-
-        $query = new DatabasebQuery($result);
-		$result = $query->result();
-        return $result;
+		return $sql;
     }
 }

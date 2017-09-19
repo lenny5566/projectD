@@ -51,18 +51,12 @@ function sort_data($sorttype, $l)
 	$no 	     = 0;
     $arr_data    = array();
 	$arr_newdata = array();
-	$db 	= new DataBase;
-	$Pages = new pages;
-	$SQL = "SELECT * FROM `book` WHERE 1";
-	$Pages->page_out = true ;
-	$query = $Pages->Page($SQL);
-
-	if ($l == 0) { //asc
-		$query  = $db->query("SELECT * FROM `book` ORDER BY $sorttype ASC");
-	} else { //desc
-		$query  = $db->query("SELECT * FROM `book` ORDER BY $sorttype DESC");
-	}
-	foreach ($query->result() as $row) {
+	$DB     = new DataBase;
+	$Pages  = new pages;
+	$Pages->page_out = true;
+	$query  = $Pages->Page($sorttype, $l);
+	$result = $DB->query($query);
+	foreach ($result as $key => $row) {
         $arr_data[$no]["ISBN"]   = $row->ISBN;
         $arr_data[$no]["press"]  = $row->press;
         $arr_data[$no]["name"]   = $row->bName;

@@ -21,7 +21,7 @@
                 }
             });
 
-        $('#select_1').change(function ()
+        $('#select_1').click(function ()
         {
             $.ajax({
                 url: 'data.php',
@@ -39,7 +39,7 @@
             });
         });
         
-        $('#select_2').change(function ()
+        $('#select_2').click(function ()
         {
             $.ajax({
                 url: 'data.php',
@@ -60,7 +60,7 @@
 		$('#output').click(function () 
 		{
 			var string = document.getElementById('msg').innerText;
-			string  = string.slice(28);
+			string  = string.slice(52);
 			string  = string.replace(/EDIT/g, "");
 			string  = string.replace(/DEL/g, "");
 			
@@ -117,7 +117,7 @@
 			<option value="2">匯出本頁</option>
             <option value="3">匯出選取項目</option>
         </select>
-		<button id="output">匯出</button>
+		<input id="output" type="image" src="image/export.png">
 	</div>
 	<br>
     <div id="choose">
@@ -136,7 +136,11 @@
             <option value="1">DESC</option>
         </select>
     </div>
-    <br><br>
+	<div id="jump_page">
+		頁碼:
+		<input id="page" type="text">
+		<input id="go_page" type="image" src="image/go.jpg">
+	</div>
     <div id="msg"></div>
     <br>
     <div style="text-align:center;">
