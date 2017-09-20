@@ -5,110 +5,167 @@
 <script type="text/javascript" src="js/FileSaver.min.js"></script>
 <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
 <script type="text/javascript">
-    $(document).ready(function load_list()
-    {   
-        $.ajax({
-                url: 'data.php',
-                cache: false,
-                dataType: 'html',
-                type: 'post',
-                data: {
-                	index : 1
-                },
-                success: function(response)
-                {
-                    $('#msg').html(response);
-                }
-            });
+var curPage = 1; //目前頁碼
+var total,pageSize,totalPage;
 
-        $('#select_1').click(function ()
-        {
-            $.ajax({
-                url: 'data.php',
-                cache: false,
-                dataType: 'html',
-                type: 'post',
-                data: {
-                	select_1: $("#select_1").find(":selected").val(),
-                	select_2: $("#select_2").find(":selected").val()
-                },
-                success: function(response)
-                {
-                    $('#msg').html(response);
-                }
-            });
-        });
-        
-        $('#select_2').click(function ()
-        {
-            $.ajax({
-                url: 'data.php',
-                cache: false,
-                dataType: 'html',
-                type: 'post',
-                data: {
-                    select_1: $("#select_1").find(":selected").val(),
-                	select_2: $("#select_2").find(":selected").val()
-                },
-                success: function(response)
-                {
-                    $('#msg').html(response);
-                }
-            });
-        });
+$(document).ready(function load_list()
+{   
+	getData(1);
+	$(document).on('click', '#pagecount span a', function()
+	{
+		var rel = $(this).attr("rel");
+		if (rel) {
+			getData(rel);
+		}
+	});
+	
+	$('#select_1').change(function ()
+    {
+		var rel = curPage;
+		getData(rel);
+	});
+	
+	$('#select_2').change(function ()
+    {
+		var rel = curPage;
+		getData(rel);
+	});
+	
+	$('#output').click(function () 
+	{
+		var string = document.getElementById('list').innerText;
+		string  = string.slice(52);
+		string  = string.replace(/EDIT/g, "");
+		string  = string.replace(/DEL/g, "");
 		
-		$('#output').click(function () 
-		{
-			var string = document.getElementById('msg').innerText;
-			string  = string.slice(52);
-			string  = string.replace(/EDIT/g, "");
-			string  = string.replace(/DEL/g, "");
-			
-			var str = string.split("	");
-			var str2 = "";
-			var count = 5;
-			for (var i in str) {
-				str[i]	= str[i].trim();
-				if (i == count) {
-					count = count + 6;
-					str2 += str[i] + "\n";
-				} else {
-					str2 += str[i] + ",";
-				}
+		var str = string.split("	");
+		var str2 = "";
+		var count = 5;
+		for (var i in str) {
+			str[i]	= str[i].trim();
+			if (i == count) {
+				count = count + 6;
+				str2 += str[i] + "\n";
+			} else {
+				str2 += str[i] + ",";
 			}
-			str2  = str2.slice(0, -2);
-			
-			var blob   = new Blob(["\ufeff", str2], {
-				type: "text/plain;charset=utf-8"
-			});
-			var Today   = new Date();
-			var strFile = Today.getFullYear() + "-" + (Today.getMonth()+1) + "-"
-						+ Today.getDate() + ".csv";
-			saveAs(blob, strFile);
-			return false;
+		}
+		str2  = str2.slice(0, -2);
+		
+		var blob   = new Blob(["\ufeff", str2], {
+			type: "text/plain;charset=utf-8"
 		});
-    });
-	
-	function check_all(obj, check)
-	{
-		var checkboxs = document.getElementsByName(check);
-		for (var i = 0; i < checkboxs.length; i++) {
-			checkboxs[i].checked = obj.checked;
+		var Today   = new Date();
+		var strFile = Today.getFullYear() + "-" + (Today.getMonth()+1) + "-"
+					+ Today.getDate() + ".csv";
+		saveAs(blob, strFile);
+		return false;
+	});
+});
+
+function getData(page)
+{ 
+	$.ajax({
+		type: 'POST',
+		url: 'data.php',
+		data: {
+			pageNum : page-1,
+			select_1: $("#select_1").find(":selected").val(),
+			select_2: $("#select_2").find(":selected").val()
+		},
+		dataType:'json',
+		success:function(json)
+		{
+			$("#list").empty();
+			total      = json.total; //資料總數
+			pageSize   = json.pageSize; //每頁數
+			curPage    = page; //目前頁數
+			totalPage  = json.totalPage; //總頁數
+			var choose = '"choose"';
+			var li     = "<table><tr><th><input type='checkbox' name='all' onClick='check_all(this, " + choose + ")'>全選</th>"+
+					"<th>ISBN</th><th>出版社</th><th>書名</th><th>作者</th><th>定價</th><th>發行日</th><th>編輯/刪除</th></tr>";
+			var list   = json.list;
+			$.each(list,function(index,array)
+			{
+				li += "<tr><td><input type='checkbox' name='choose' value=''></td><td>"+
+					array['ISBN']  + "</td><td>"+
+					array['press'] +"</td><td>" +
+					array['bName'] +"</td><td>" +
+					array['author']+"</td><td>" +
+					array['prize'] +"</td><td>" +
+					array['day']   +"</td><td>" +
+					"<button style='background-color:#FF9900;'><a href='edit.php?id="  +array['id']+
+					"'> 編輯 </a></button>&nbsp"+
+					"<button style='background-color:#FF0000;'><a href='delete.php?id="+array['id']+
+					"' onClick='return check_delete();'> 刪除 </a></button></tr>";
+			});
+			li += "</table>";
+			$("#list").append(li);
+		},
+		
+		complete:function() //分頁
+		{
+			getPageBar();
+		},
+		
+		error:function()
+		{
+			alert("載入失敗!");
 		}
+	});
+}
+
+function getPageBar()
+{
+	//頁碼大於最大頁
+	if (curPage > totalPage) {
+		curPage = totalPage;
+	}
+	//頁碼小於1
+	if (curPage < 1) {
+		curPage = 1;
+	}
+	pageStr = "";
+	//如果是首頁
+	if (curPage == 1) {
+		pageStr += "<span> |<  </span><span> << </span>";
+	} else {
+		pageStr += "<span><a href='javascript:void(0)' rel='1'> |<  </a></span><span><a href='javascript:void(0)' rel='"+(curPage-1)+"'> << </a></span>";
 	}
 	
-	function check_delete()
-	{
-		if (confirm("Sure Delete?") == true) {
-			return true;
-		} else {
-			return false;
-		}
+	pageStr += "<span>共"+totalPage+"頁</span><span>第 "+curPage+" 頁</span>";
+	
+	//如果是最後頁
+	if (curPage >= totalPage) {
+		pageStr += "<span> >> </span><span> >| </span>";
+	} else {
+		pageStr += "<span><a href='javascript:void(0)' rel='"+(parseInt(curPage)+1)+"'> >> </a></span><span><a href='javascript:void(0)' rel='"+totalPage+"'> >| </a></span>";
 	}
+
+	$("#pagecount").html(pageStr);
+}
+
+function check_all(obj, check)
+{
+	var checkboxs = document.getElementsByName(check);
+	for (var i = 0; i < checkboxs.length; i++) {
+		checkboxs[i].checked = obj.checked;
+	}
+}
+
+function check_delete()
+{
+	if (confirm("Sure Delete?") == true) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
 </script>
 </head>
 <body onload="load_list()">
-    <br><br><br><br><br>
+    <br><br><br>
     <div style="text-align:right;">
 		<strong style="color:#003399; font-size:13px;">
 			匯出方式
@@ -139,13 +196,14 @@
             <option value="0" selected>ASC</option>
             <option value="1">DESC</option>
         </select>
-    </div>
-	<div id="jump_page">
-		頁碼:
-		<input id="page" type="text">
-		<input id="go_page" type="image" src="image/go.jpg">
-	</div>
-    <div id="msg"></div>
+		<div id="pagecount"></div>
+		<div id="jump_page">
+			頁碼:
+			<input id="page" type="text">
+			<input id="go_page" type="image" src="image/go.jpg">
+		</div>
+   	</div>
+    <div id="list"></div>
     <br>
     <div style="text-align:center;">
         <button style="background-color:#66FF99;">
