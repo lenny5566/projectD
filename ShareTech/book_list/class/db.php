@@ -93,7 +93,7 @@ class pages
 		} else {
 			$page = intval($_GET["page"] + 0);
 		}
-		
+
 		$start = ($page-1)*$per; //每一頁開始的資料序號
 		$sql = 'SELECT * FROM (SELECT * FROM book LIMIT '.$start.', '.$per.') t
 				ORDER BY '.$sorttype.' '.$sort;

@@ -38,9 +38,9 @@ function print_table($data)
 		echo "<td>" . $data_array[3] . "</td>";
 		echo "<td>" . $data_array[4] . "</td>";
 		echo "<td>" . $data_array[5] . "</td>";
-		echo "<td> <button> <a href='edit.php?id=".$data_array[6]."'> EDIT </a> </button>";
+		echo "<td> <button style='background-color:#FF9900;'> <a href='edit.php?id=".$data_array[6]."'> 編輯 </a> </button>";
 		echo "&nbsp";
-		echo "<button> <a href='delete.php?id=".$data_array[6]."' onClick='return check_delete();'> DEL </a> </button> </td>";
+		echo "<button style='background-color:#FF0000;'> <a href='delete.php?id=".$data_array[6]."' onClick='return check_delete();'> 刪除 </a> </button> </td>";
 		echo "</tr>";
     }
     echo "</table>";

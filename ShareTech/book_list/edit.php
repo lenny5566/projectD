@@ -7,11 +7,10 @@
 		$db 	= new DataBase;
 		$row_Record = array();
 		$query  = $db->query("SELECT * FROM `book` where id = '$count'");
-		$data = $query->result();
-		if (empty($data) ) {
+		if (empty($query) ) {
 			header("Location: xhtml/message.html");
 		}
-		foreach ($data as $row) {
+		foreach ($query as $row) {
 			$row_Record["ISBN"]   = $row->ISBN;
 			$row_Record["press"]  = $row->press;
 			$row_Record["bName"]  = $row->bName;

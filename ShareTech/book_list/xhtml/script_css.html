@@ -25,14 +25,19 @@ a {
 
 table {
     width : 100%;
-    line-height      : 20px;
+    line-height      : 30px;
     text-align       : center;
-    border-spacing   : 50px 5px;
     border-collapse  : collapse;
-    background-color : #F8F8FF;
+    background-color : white;
+	font-size		 : 14px;
+	border  		 : 5px solid #BBB;
 }
 
-table, td, th {
+th {
+	font-size : 16px;
+}
+
+td, th {
     border  : 1px solid #BBB;
     padding : 5px #BBB;
 }
@@ -42,11 +47,6 @@ html, body {
     color: black;
     font-weight: bold;
     background : white;
-}
-
-#msg {
-    float       : center;
-    text-align  : center;
 }
 
 #choose {
@@ -59,20 +59,18 @@ html, body {
     text-align  : center;
 }
 
-input[type="submit"], input[type="reset"], input[type="date"], select {
-    padding        : 5px 15px;
-    background     : #DDDDDD;
-    border         : 0 none ;
-    cursor         : pointer;
-    border-radius  : 5px;
-    font-family    : "標楷體";
-	color: black;
+button, select {
+	padding     : 3px 10px;
+	font-family : "標楷體";
 }
 
-.ifile {
-    position : absolute;
-    opacity  : 0;
-    filter   : alpha(opacity=0);
+input[type="submit"], input[type="reset"], input[type="button"],
+input[type="date"],   input[type="text"] {
+    padding     : 2px 10px;
+    cursor      : pointer;
+    font-family : "標楷體";
+	color		: black; 
+	font-size	: 13px;
 }
 
 </style>
