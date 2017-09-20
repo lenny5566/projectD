@@ -4,12 +4,15 @@
 <?php require("xhtml/script_css.html") ?>
 <script type="text/javascript" src="js/FileSaver.min.js"></script>
 <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="js/jquery-1.12.1.ui.js"></script>
 <script type="text/javascript">
 var curPage = 1; //目前頁碼
 var total,pageSize,totalPage;
 
+$(document).tooltip();
+
 $(document).ready(function load_list()
-{   
+{
 	getData(1);
 	$(document).on('click', '#pagecount span a', function()
 	{
@@ -102,12 +105,14 @@ function getData(page)
 			li += "</table>";
 			$("#list").append(li);
 		},
-		
+
 		complete:function() //分頁
 		{
-			getPageBar();
+			if (total > 16) {
+				getPageBar();
+			}
 		},
-		
+
 		error:function()
 		{
 			alert("載入失敗!");
@@ -128,18 +133,18 @@ function getPageBar()
 	pageStr = "";
 	//如果是首頁
 	if (curPage == 1) {
-		pageStr += "<span> |<  </span><span> << </span>";
+		pageStr += "";
 	} else {
 		pageStr += "<span><a href='javascript:void(0)' rel='1'> |<  </a></span><span><a href='javascript:void(0)' rel='"+(curPage-1)+"'> << </a></span>";
 	}
 	
-	pageStr += "<span>共"+totalPage+"頁</span><span>第 "+curPage+" 頁</span>";
+	pageStr += "<span>第 "+curPage+" 頁</span>";
 	
 	//如果是最後頁
 	if (curPage >= totalPage) {
-		pageStr += "<span> >> </span><span> >| </span>";
+		pageStr += "";
 	} else {
-		pageStr += "<span><a href='javascript:void(0)' rel='"+(parseInt(curPage)+1)+"'> >> </a></span><span><a href='javascript:void(0)' rel='"+totalPage+"'> >| </a></span>";
+		pageStr += "<span><a href='javascript:void(0)' rel='"+(parseInt(curPage)+1)+"'> >> </a></span><span title='第 "+totalPage+" 頁'><a href='javascript:void(0)' rel='"+totalPage+"'> >| </a></span>";
 	}
 
 	$("#pagecount").html(pageStr);
