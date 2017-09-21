@@ -37,13 +37,19 @@ class DataBase
 		$result = $query->result();
         return $result;
     }
-
+	
+	function number_query($sql_string)
+	{
+        $result = mysql_query($sql_string);
+        $query  = mysql_num_rows($result);
+        return $query;
+    }
 }
 
 class DatabasebQuery
 {
     private $result;
-    
+
     function __construct($result)
 	{
         $this->result = $result;
