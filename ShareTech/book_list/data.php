@@ -1,7 +1,7 @@
 <?php
 
 include("class/db.php");
-
+$db   = new DataBase;
 $page = intval($_POST['pageNum']);
 
 if (isset ($_POST['sort']) ) {
@@ -15,17 +15,15 @@ if (isset ($_POST['sort']) ) {
 	}
 }
 
-$db   = new DataBase;
-
 $result = "SELECT * FROM book";
 $total  = $db->number_query($result);//總記錄數
 
-$pageSize = 16; //每頁顯示數
+$pageSize  = 16; //每頁顯示數
 $totalPage = ceil($total/$pageSize); //總頁數
 
 $startPage = $page*$pageSize;
-$arr['total'] = $total;
-$arr['pageSize'] = $pageSize;
+$arr['total'] 	  = $total;
+$arr['pageSize']  = $pageSize;
 $arr['totalPage'] = $totalPage;
 
 if ($sort == 0) { //asc
