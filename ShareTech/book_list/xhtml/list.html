@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-<?php require("xhtml/script_css.html") ?>
+<?php require("style/script_css.css") ?>
 <script type="text/javascript" src="js/FileSaver.min.js"></script>
 <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
 <script type="text/javascript" src="js/jquery-1.12.1.ui.js"></script>
 <script type="text/javascript">
 var curPage = 1; //目前頁碼
 var total,pageSize,totalPage;
+var x = 10;  
+var y = 20;
 
-$(document).ready(function load_list()
+$(function ()
 {
-	get_Data(1);
 	$(document).on('click', '#pagecount span a', function()
 	{
 		var rel = $(this).attr("rel");
@@ -44,7 +45,33 @@ $(document).ready(function load_list()
 			alert("請輸入頁碼!");
 		}
 	});
-	
+
+	$(document).on('mouseover', '.tooltip', function(e)
+	{
+		if (this.title != "" && this.title != "undefined") {
+			this.myTitle = this.title;
+			this.title   = "";
+			var tooltip  = "<p id='tooltip'>" + this.myTitle + "<\/p>"; //生成div
+			$("body").append(tooltip);
+			$("#tooltip").css({
+					"top" : (e.pageY+y) + "px",
+					"left": (e.pageX+x) + "px"
+			}).show("fast");	  //設置x座標和y座標，然後顯示
+		} else {
+			this.title   = "";
+		}
+	}).on('mouseout', '.tooltip', function()
+	{		
+		this.title = this.myTitle;
+		$("#tooltip").remove();   //滑鼠移開後，移除tip
+	}).on('mousemove', '.tooltip', function()
+	{	
+		$("#tooltip").css({
+			"top": (e.pageY+y) + "px",
+			"left": (e.pageX+x)  + "px"
+		});
+	});
+
 	$(document).on('click', '#output', function ()
 	{
 		var choose = $("#output_choose").find(":selected").val();
@@ -78,6 +105,8 @@ $(document).ready(function load_list()
 			}
 		}
 	});
+	
+	get_Data(1);
 });
 
 function get_Data(page)
@@ -103,12 +132,12 @@ function get_Data(page)
 			$.each(list,function(index,array)
 			{
 				li += "<tr onmouseover='this.style.backgroundColor=" + '"#EEEEEE"' +
-						";' onMouseOut='this.style.backgroundColor=" + '"white"'   +
+						";' onmouseout='this.style.backgroundColor=" + '"white"'   +
 						";'><td><input type='checkbox' name='choose' value='"
 							+ array['ISBN'] + "," + array['press'] + "," + array['bName'] + 
 						"," + array['author'] + "," + array['prize'] + "," + array['day'] + 
 						"'></td><td>" +
-					array['ISBN']  + "</td><td>"+
+					array['ISBN']  + "</td><td class='tooltip' title='" + array['p_data'] + "'>" +
 					array['press'] +"</td><td>" +
 					array['bName'] +"</td><td>" +
 					array['author']+"</td><td>" +
@@ -163,7 +192,8 @@ function get_PageBar()
 		pageStr += "";
 	} else {
 		pageStr += "<span><a href='javascript:void(0)' rel='" + (parseInt(curPage)+1) + "'> >> </a></span>" +
-				   "<span><a href='javascript:void(0)' rel='" + totalPage + "'> >| </a></span>";
+				   "<span class='tooltip' title='第 " + totalPage + " 頁'>" +
+				   "<a href='javascript:void(0)' rel='" + totalPage + "'> >| </a></span>";
 	}
 
 	$("#pagecount").html(pageStr);
@@ -201,25 +231,21 @@ function check_delete()
 
 </script>
 </head>
-<body onload="load_list()">
+<body>
     <br><br><br>
-    <div style="text-align:right;">
-		<strong style="color:#003399; font-size:13px;">
-			匯出方式
-		</strong>
+    <div id="print">
+		匯出方式
 		<select id="output_choose">
             <option value="0" selected>請選擇</option>
             <option value="1">匯出全部</option>
 			<option value="2">匯出本頁</option>
             <option value="3">匯出選取項目</option>
         </select>
-		<input id="output" type="image" src="image/export.png">
+		<input id="output" type="image" src="images/export.png">
 	</div>
-	<br>
+	<br><br>
     <div id="choose">
-		<strong style="color:#003399; font-size:13px;">
-			排序方式
-		</strong>
+		排序方式
         <select id="sort">
 			<option value="1" selected>請選擇</option>
 			<option value="ISBN:0">ISBN:ASC</option>
@@ -235,12 +261,14 @@ function check_delete()
             <option value="day:0">發行日:ASC</option>
 			<option value="day:1">發行日:DESC</option>
         </select>
-		<div id="pagecount"></div>
-		<div id="jump_page">
+		&nbsp &nbsp
+		<span id="pagecount"></span>
+		&nbsp &nbsp
+		<span id="jump_page">
 			頁碼:
 			<input id="page" type="text" val="">
-			<input id="go_page" type="image" src="image/go.jpg">
-		</div>
+			<input id="go_page" type="image" src="images/go.jpg">
+		</span>
    	</div>
     <div id="list"></div>
     <br>

@@ -20,12 +20,12 @@ h3 {
 
 a {
     text-decoration : none;
-	color: black;
+	color 			: black;
 }
 
 table {
-    width : 100%;
-    line-height      : 30px;
+    width 			 : 100%;
+    line-height      : 20px;
     text-align       : center;
     border-collapse  : collapse;
     background-color : white;
@@ -44,28 +44,44 @@ td, th {
 
 html, body {
     font-family: "標楷體";
-    color: black;
+    color	   : black;
     background : white;
 }
 
-#choose {
-    float       : center;
-    text-align  : center;
-}
-
-#jump_page {
+#choose, #print {
     float       : right;
     text-align  : center;
+	color	    : #003399;
+	text-align  : 13px;
+	font-weight : bold;
+	line-height : 30px;
 }
 
 button, select {
-	padding     : 3px 10px;
+	color	    : #003399;
+	text-align  : 13px;
 	font-family : "標楷體";
+}
+
+#tooltip {
+	border		: 2px solid #000;
+	padding		: 1px;
+	color		: #333;
+	text-align  : 13px;
+	display		: none;
+	position	: absolute;
+	background-color: #F1F1F1;
+}
+
+#jump_page {
+	color	   : #003399;
+	text-align : 13px;
+	font-weight:bold;
 }
 
 input[type="submit"], input[type="reset"], input[type="button"],
 input[type="date"],   input[type="text"] {
-    padding     : 2px 10px;
+    padding     : 1px 5px;
     cursor      : pointer;
     font-family : "標楷體";
 	color		: black; 

@@ -33,6 +33,11 @@ if ($sort == 0) { //asc
 }
 
 foreach ($query as $row) {
+	$data = "";
+	if (!empty($row->phone) && !empty($row->address) ) {
+		$data = $row->phone."<br>".$row->address;
+	}
+
 	$arr['list'][] = array(
 		'ISBN'   => $row->ISBN,
 		'press'  => $row->press,
@@ -41,6 +46,7 @@ foreach ($query as $row) {
 		'prize'  => $row->prize,
 		'day' 	 => $row->day,
 		'id' 	 => $row->id,
+		'p_data' => $data
 	);
 }
 echo json_encode($arr);
