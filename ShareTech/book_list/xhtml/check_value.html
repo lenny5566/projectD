@@ -1,31 +1,32 @@
 <script language="javascript">
 function checkForm()
 {
-	if (document.formJoin.num.value == "") {		
-		alert("Please enter ISBN!");
-		document.formJoin.num.focus();
-		return false;
+	var str = /^\s/;
+	if (document.formJoin.num.value == "" || str.test(document.formJoin.num.value)) {
+			alert("Please enter ISBN!");
+			document.formJoin.num.focus();
+			return false;
 	}
 	
-	if (document.formJoin.press.value == "") {
+	if (document.formJoin.press.value == "" || str.test(document.formJoin.press.value)) {
 		alert("Please enter Press!");
 		document.formJoin.press.focus();
 		return false;
 	}
 	
-	if (document.formJoin.name.value == "") {
+	if (document.formJoin.name.value == "" || str.test(document.formJoin.name.value)) {
 		alert("Please enter Book name!");
 		document.formJoin.name.focus();
 		return false;
 	}
 	
-	if (document.formJoin.author.value == "") {
+	if (document.formJoin.author.value == "" || str.test(document.formJoin.author.value)) {
 		alert("Please enter Author!");
 		document.formJoin.author.focus();
 		return false;
 	}
 	
-	if (document.formJoin.prize.value == "") {
+	if (document.formJoin.prize.value == "" || str.test(document.formJoin.prize.value)) {
 		alert("Please enter Prize!");
 		document.formJoin.prize.focus();
 		return false;
@@ -36,7 +37,7 @@ function checkForm()
 		return false;
 	}
 
-	if (document.formJoin.day.value == "") {
+	if (document.formJoin.day.value == "" || str.test(document.formJoin.day.value)) {
 		alert("Please enter Day!");
 		document.formJoin.day.focus();
 		return false;
@@ -46,6 +47,7 @@ function checkForm()
 		document.formJoin.day.focus();
 		return false;
 	}
+
 	return confirm('Sure send data?');
 }
 
@@ -68,5 +70,4 @@ function check_day(day)
 	alert("Day type isn't correct!");
 	return false;
 }
-
 </script>

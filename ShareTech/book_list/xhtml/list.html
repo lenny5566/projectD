@@ -2,14 +2,12 @@
 <html>
 <head>
 <?php require("style/script_css.css") ?>
-<script type="text/javascript" src="js/FileSaver.min.js"></script>
-<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
-<script type="text/javascript" src="js/jquery-1.12.1.ui.js"></script>
 <script type="text/javascript">
 var curPage = 1; //目前頁碼
 var total,pageSize,totalPage;
 var x = 10;  
 var y = 20;
+var e = "";
 
 $(function ()
 {
@@ -61,15 +59,18 @@ $(function ()
 			this.title   = "";
 		}
 	}).on('mouseout', '.tooltip', function()
-	{		
+	{
 		this.title = this.myTitle;
 		$("#tooltip").remove();   //滑鼠移開後，移除tip
 	}).on('mousemove', '.tooltip', function()
-	{	
+	{
 		$("#tooltip").css({
 			"top": (e.pageY+y) + "px",
 			"left": (e.pageX+x)  + "px"
 		});
+	}).on('click', '.tooltip', function()
+	{
+		$("#tooltip").remove();
 	});
 
 	$(document).on('click', '#output', function ()
@@ -143,10 +144,8 @@ function get_Data(page)
 					array['author']+"</td><td>" +
 					array['prize'] +"</td><td>" +
 					array['day']   +"</td><td>" +
-					"<button style='background-color:#FF9900;'><a href='edit.php?id="   + array['id'] +
-					"'> 編輯 </a></button>&nbsp" +
-					"<button style='background-color:#FF0000;'><a href='delete.php?id=" + array['id'] +
-					"' onClick='return check_delete();'> 刪除 </a></button></tr>";
+					"<input type='button' style='background-color:#FF9900;' value='編輯'  onClick='location.href="+'"edit.php?id='+ array['id'] +'"'+" '></input>&nbsp" +
+					"<input type='button' style='background-color:#FF0000;' value='刪除'  onClick='return check_delete(" + array['id'] +");'></input></tr>";
 			});
 			li += "</table>";
 			$("#list").append(li);
@@ -181,8 +180,8 @@ function get_PageBar()
 	if (curPage == 1) {
 		pageStr += "";
 	} else {
-		pageStr += "<span><a href='javascript:void(0)' rel='1'> |<  </a></span>" +
-				   "<span><a href='javascript:void(0)' rel='" + (curPage-1) + "'> << </a></span>";
+		pageStr += "<span><a href='javascript:void(0)' rel='1'>|<</a></span>&nbsp" +
+				   "<span><a href='javascript:void(0)' rel='" + (curPage-1) + "'><<</a></span>&nbsp";
 	}
 	
 	pageStr += "<span>第 "+curPage+" 頁</span>";
@@ -191,9 +190,9 @@ function get_PageBar()
 	if (curPage >= totalPage) {
 		pageStr += "";
 	} else {
-		pageStr += "<span><a href='javascript:void(0)' rel='" + (parseInt(curPage)+1) + "'> >> </a></span>" +
-				   "<span class='tooltip' title='第 " + totalPage + " 頁'>" +
-				   "<a href='javascript:void(0)' rel='" + totalPage + "'> >| </a></span>";
+		pageStr += "&nbsp<span><a href='javascript:void(0)' rel='" + (parseInt(curPage)+1) + "'>>></a></span>" +
+				   "&nbsp<span><a class='tooltip' title='第 " + totalPage +
+				   " 頁' href='javascript:void(0)' rel='" + totalPage + "'>>|</a></span>";
 	}
 
 	$("#pagecount").html(pageStr);
@@ -220,10 +219,10 @@ function check_all(obj, check)
 	}
 }
 
-function check_delete()
+function check_delete(num)
 {
 	if (confirm("真的要刪除?") == true) {
-		return true;
+		location.href = "delete.php?id=" + num;
 	} else {
 		return false;
 	}
@@ -261,9 +260,9 @@ function check_delete()
             <option value="day:0">發行日:ASC</option>
 			<option value="day:1">發行日:DESC</option>
         </select>
-		&nbsp &nbsp
+		&nbsp
 		<span id="pagecount"></span>
-		&nbsp &nbsp
+		&nbsp
 		<span id="jump_page">
 			頁碼:
 			<input id="page" type="text" val="">
@@ -273,9 +272,8 @@ function check_delete()
     <div id="list"></div>
     <br>
     <div style="text-align:center;">
-        <button style="background-color:#66FF99;">
-            <a href="add_list.php">新增</a>
-        </button>
+        <input type="button" style="background-color:#66FF99;" value="新增" onclick="location.href='add_list.php'">
+        </input>
     </div>
 </body>
 </html>

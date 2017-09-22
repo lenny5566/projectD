@@ -27,9 +27,9 @@ $arr['pageSize']  = $pageSize;
 $arr['totalPage'] = $totalPage;
 
 if ($sort == 0) { //asc
-	$query = $db->query("SELECT * FROM (SELECT * FROM book LIMIT $startPage, $pageSize) t ORDER BY $choose ASC");
+	$query = $db->query("SELECT * FROM book ORDER BY $choose ASC LIMIT $startPage, $pageSize");
 } else { //desc
-	$query = $db->query("SELECT * FROM (SELECT * FROM book LIMIT $startPage, $pageSize) t ORDER BY $choose DESC");
+	$query = $db->query("SELECT * FROM book ORDER BY $choose DESC LIMIT $startPage, $pageSize");
 }
 
 foreach ($query as $row) {

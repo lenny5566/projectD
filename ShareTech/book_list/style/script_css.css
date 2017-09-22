@@ -1,5 +1,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
+<script type="text/javascript" src="./js/FileSaver.min.js"></script>
+<script type="text/javascript" src="./js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="./js/jquery-1.12.1.ui.js"></script>
 <title>List</title>
 <style>
 
@@ -21,6 +24,11 @@ h3 {
 a {
     text-decoration : none;
 	color 			: black;
+}
+
+#pagecount a {
+	text-decoration : underline;
+	color			: #003399;
 }
 
 table {
@@ -80,7 +88,7 @@ button, select {
 }
 
 input[type="submit"], input[type="reset"], input[type="button"],
-input[type="date"],   input[type="text"] {
+input[type="text"] {
     padding     : 1px 5px;
     cursor      : pointer;
     font-family : "標楷體";
