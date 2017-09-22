@@ -82,7 +82,8 @@ $(function ()
 			var checkVal = new Array();
 			var data = "";
 			if (choose == 1) {
-				location.href = "print.php";
+				var sort = $("#sort").find(":selected").val();
+				location.href = "print.php?sort="+ sort;
 			}
 			
 			if (choose == 2) {

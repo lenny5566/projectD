@@ -3,7 +3,23 @@
 include("class/db.php");
 $string = "";
 $db   	= new DataBase;
-$query  = $db->query("SELECT * FROM book");
+
+if (isset ($_GET['sort']) ) {
+	if ($_GET['sort'] == 1) {
+		$choose = 'ISBN';
+		$sort   = 0;
+	} else {
+		$str = explode(':', $_GET['sort']);
+		$choose = $str[0];
+		$sort   = $str[1];
+	}
+}
+
+if ($sort == 0) { //asc
+	$query = $db->query("SELECT * FROM book ORDER BY $choose ASC");
+} else { //desc
+	$query = $db->query("SELECT * FROM book ORDER BY $choose DESC");
+}
 
 foreach ($query as $key => $row) {
 	if ($key == 0) {
