@@ -1,0 +1,25 @@
+root:~/test# /sbin/ifconfig eth1
+eth1      Link encap:Ethernet  HWaddr 00:50:56:29:6B:D5
+          inet6 addr: fe80::250:56ff:fe29:6bd5/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:70459 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:6 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:5459891 (5.2 Mb)  TX bytes:548 (548.0 b)
+          Interrupt:19 Base address:0x1480
+
+root:~/test# /sbin/ifconfig eth0
+eth0      Link encap:Ethernet  HWaddr 00:50:56:3C:63:77
+          inet addr:192.168.189.71  Bcast:192.168.189.255  Mask:255.255.255.0
+          inet6 addr: fe80::250:56ff:fe3c:6377/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:773238 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:55610 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:61699876 (58.8 Mb)  TX bytes:32505769 (30.9 Mb)
+          Interrupt:18 Base address:0x1400
+
+root:~/test# /sbin/ifconfig eth3
+eth3: error fetching interface information: Device not found
+
+L1A L2

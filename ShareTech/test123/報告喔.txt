@@ -1,0 +1,59 @@
+PortDev.php
+line17:  
+$this->getv("WAN") == 4  成立
+else if 多餘?
+
+parse_ini_file => array{ [LANs] = 2 , [
+WAN] = 4}
+
+$msg[5] => 1. NAME="eth01"    2. NAME="eth3"
+ 
+line60:
+empty($aPortDev) 不成立
+
+回傳:
+$aPortDev[0]  = "L1A"
+$aPortDev[3]  = "L2"
+
+Main.php
+
+傳位址
+$refresh = 2;
+	
+$aIFTxRx = array();
+到read_ifdata
+
+line 124:
+read_ifdata:
+/PCONF/IFdata存在嗎?
+不在: 將refresh = 2 從最後寫入 /PCONF/IFdata  ，回傳
+在: 讀檔，用等於分割
+>$refresh 值
+>$key當關聯索引
+>$aTmp[1]值再用逗號分割 > 存到 $aIFTxRx 內
+
+line 14:
+/ram/tmp/wanstatus 存在嗎?
+存在: 讀檔內容
+WAN1=OFF=OFF
+WAN2=OFF=OFF
+line 17 應該改成將陣列資料寫入 /ram/tmp/wanstatus
+
+將eth0_arr, eth0  丟到 fetchRxTx
+
+line 84:
+time() : 目前Unix時間戳
+date() : 格式化日期 i : 帶有首位0的分鐘
+intval():取整數
+
+$aIFTxRx[$devS] 有值?
+
+line 100: 
+
+/PCONF/IFdata 結果
+refresh = 2
+eth0_arr = 62055132,32515433,777271,55678
+eth1_arr = ,,,
+eth01_arr = ,,,
+eth3_arr = ,,,
+

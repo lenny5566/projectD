@@ -1,0 +1,71 @@
+Device "OFF" does not exist.
+1618368,128000,2250,69,62055132,32515433,777271,55678
+0,0,,,,,,
+Device "eth01" does not exist.
+0,0,,,,,,
+Device "eth3" does not exist.
+0,0,,,,,,
+--------get_ethinfo--------
+eth3: error fetching interface information: Device not found
+eth3: error fetching interface information: Device not found
+Device "eth3" does not exist.
+/bin/cat: /sys/class/net/eth3/carrier: No such file or directory
+Array
+(
+    [0] => Array
+        (
+            [dev] => eth0
+            [name] => LAN
+            [ip] => 192.168.189.71
+            [connect] => up
+            [link] => yes
+            [rx_error] => 0
+            [tx_error] => 0
+            [collisions] =>
+        )
+
+    [1] => Array
+        (
+            [dev] => eth1
+            [ip] => OFF
+            [name] => WAN1
+            [connect] => down
+            [link] => yes
+            [rx_error] => 0
+            [tx_error] => 0
+            [collisions] => 0
+        )
+
+    [2] => Array
+        (
+            [dev] => eth2
+            [ip] => OFF
+            [name] => WAN2
+            [connect] => down
+            [link] => yes
+            [rx_error] => 0
+            [tx_error] => 0
+            [collisions] => 0
+        )
+
+    [3] => Array
+        (
+            [dev] => eth3
+            [name] => DMZ
+            [ip] => OFF
+            [connect] => down
+            [link] => no
+            [rx_error] => 0
+            [tx_error] => 0
+            [collisions] =>
+        )
+
+)
+--------get_dns--------
+running
+--------cpuloading--------
+11882430, 401965, 1.27, 1.20, 0.85
+--------hddinfo--------
+6047,5408,6%
+--------meminfo--------
+253.79,148.62
