@@ -5,10 +5,55 @@ using System.Web.UI;
 
 public partial class Test_List_add : Page
 {
+    string Msg = ""; 
     protected void Add_Click(object sender, EventArgs e)
     {
+        if (CheckForm() == false) {
+            Response.Write("<script>alert('" + Msg + "')</script>");
+        } else {
+            InsertData();
+        }
+    }
+
+    protected bool CheckForm()
+    {
+        if (string.IsNullOrEmpty(TID.Text))
+        {
+            Msg = "Please enter TID!";
+            return false;
+        }
+
+        if (string.IsNullOrEmpty(TName.Text))
+        {
+            Msg = "Please enter TName!";
+            return false;
+        }
+
+        if (string.IsNullOrEmpty(TPhone.Text))
+        {
+            Msg = "Please enter TPhone!";
+            return false;
+        }
+
+        if (string.IsNullOrEmpty(TSubject.Text))
+        {
+            Msg = "Please enter TSubject!";
+            return false;
+        }
+
+        if (string.IsNullOrEmpty(TSex.Text))
+        {
+            Msg = "Please enter TSex!";
+            return false;
+        }
+
+        return true;
+    }
+
+    private void InsertData()
+    {
         SqlConnection conn = new SqlConnection("Data Source=400-36042696\\SQLEXPRESS;Initial Catalog=testDB;" +
-                    "Integrated Security=true;");
+                            "Integrated Security=true;");
         SqlCommand cmd = null;
         try
         {
