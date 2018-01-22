@@ -80,17 +80,18 @@ public partial class Teacher_List : Page
     protected void Delete_Click(object sender, EventArgs e)
     {
         SqlConnection conn = DB_Connect();
-        SqlCommand saerch = null;
+        SqlCommand search = null;
+        SqlCommand s_data = null;
         SqlCommand cmd = null;
 
-        saerch = new SqlCommand("Select * From Student Where TID=@TID;", conn);
-        saerch.Parameters.Add("@TID", SqlDbType.Int).Value = DropDownList1.SelectedValue;
+        search = new SqlCommand("Select * From Student Where TID=@TID;", conn);
+        search.Parameters.Add("@TID", SqlDbType.Int).Value = DropDownList1.SelectedValue;
 
-        if (saerch.ExecuteScalar() != null)
+        if (search.ExecuteScalar() != null)
         {
-            saerch = new SqlCommand("Delete * From Student Where TID=@TID;", conn);
-            saerch.Parameters.Add("@TID", SqlDbType.Int).Value = DropDownList1.SelectedValue;
-            saerch.ExecuteNonQuery();
+            s_data = new SqlCommand("Delete From Student Where TID=@TID;", conn);
+            s_data.Parameters.Add("@TID", SqlDbType.Int).Value = DropDownList1.SelectedValue;
+            s_data.ExecuteNonQuery();
         }
 
         try
